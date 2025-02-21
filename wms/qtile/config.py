@@ -11,7 +11,6 @@ from libqtile.utils import guess_terminal
 #######################################
 # Defaults
 #######################################
-
 # a0 - active followed by priority number; 0 being highest
 # b0 - block
 theme = 1

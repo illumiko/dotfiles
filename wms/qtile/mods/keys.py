@@ -92,6 +92,12 @@ keys = [
     #     lazy.window.togroup("9", switch_group=True),
     #     desc="Switch to & move focused window to group {}".format("9"),
     # ),
+
+    #Scratchpad
+    Key(["mod1"],"1",lazy.group['s'].dropdown_toggle('mp')),
+    Key(["mod1"],"2",lazy.group['s'].dropdown_toggle('vol')),
+    Key(["mod1"],"3",lazy.group['s'].dropdown_toggle('t')),
+
 ]
 
 
