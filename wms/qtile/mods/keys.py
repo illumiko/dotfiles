@@ -98,6 +98,7 @@ keys = [
     Key(["mod1"],"2",lazy.group['s'].dropdown_toggle('vol')),
     Key(["mod1"],"3",lazy.group['s'].dropdown_toggle('t')),
 
+     Key([mod, "control"], "b", lazy.hide_show_bar("all")),
 ]
 
 
