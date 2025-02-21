@@ -1,0 +1,217 @@
+{
+    "layer": "bottom",
+    "reload_style_on_change": true,
+    "position": "bottom",
+    "mod": "dock",
+    "exclusive": true,
+    "spacing": 0,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 0,
+    "margin-bottom": 0,
+    "margin-right":10,
+    "margin-left":10,
+    "margin-top": 5,
+    // "margin-right":15,
+    // "margin-left": 15,
+    "fixed-center":true,
+    // "width":500,
+    "modules-left": ["custom/notification","hyprland/workspaces"],
+    "modules-center":["clock"],
+    "modules-right": ["custom/power_profile","pulseaudio","battery","network","bluetooth","tray"],
+    // "modules-center": ["clock","custom/music","network",, "custom/power_profile","battery","backlight","pulseaudio","tray"],
+    "hyprland/window": {
+        "format": "{}",
+        "separate-outputs": false,
+        "max-length":36
+    },
+    "memory": {
+        "interval": 5,
+        "format": " {}%",
+        "max-length": 10
+    },
+    "disk": {
+    "interval": 30,
+    "format": "󱛟 {free}",
+    "path": "/"
+    },
+    "mpris": {
+        "format": "DEFAULT: {player_icon} {dynamic}",
+        "format-paused": "DEFAULT: {status_icon} <i>{dynamic}</i>",
+        "player-icons": {
+            "default": "▶",
+            "mpv": "🎵"
+        },
+        "status-icons": {
+            "paused": "⏸"
+        }
+        // "ignored-players": ["firefox"]
+    },
+    "hyprland/workspaces": {
+        "format": " <span font='20'><b>{icon}</b></span>  ",
+        "all-outputs":false,
+        "on-click": "activate",
+        "active-only":false,
+        "sort-by-number": false,
+        // "persistent-workspaces":{
+        // "*":9,
+        // },
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "󱠏",
+            "5": "󰙯",
+            "6": "󱓧",
+            "7": "",
+            "8": "󰑋",
+            "9": "s",
+            // "5": "V",
+            // "6": "VI",
+            // "7": "VII",
+            // "8": "VIII",
+            // "11": "XI",
+            // "12": "XII",
+            // "13": "XIII",
+            // "14": "XIV",
+            // "15": "XV",
+            // "16": "XVI",
+            // "17": "XVII",
+            // "18": "XVIII",
+            // "19": "XIX",
+            // "21": "XXI",
+            // "22": "XXII",
+            // "23": "XXIII",
+            // "24": "XXIV",
+            // "25": "XXV",
+            // "26": "XXVI",
+            // "27": "XXVII",
+            // "28": "XXVIII",
+            // "29": "XXIX",
+            // "30": "XXX",
+            "urgent": ""
+        }
+    },
+    
+    "tray": {
+        "icon-size": 20,
+        "spacing":0
+    },
+
+    "custom/music":{
+        "exec": "~/.config/waybar/scripts/current_playing_song.sh",
+        "format":"  {}",
+        "max-length":40,
+        "interval":"5"
+
+    },
+
+    "clock": {
+    "format-alt": "{:%H:%M}  ",
+    "format": " {:%A, %B %d, %Y (%I:%M)}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+                "mode"          : "year",
+                "mode-mon-col"  : 3,
+                // "weeks-pos"     : "right",
+                "on-scroll"     : 1,
+                "format": {
+                          "months":     "<span color='#209db6'><b>{}</b></span>",
+                          "days":       "<span color='#576175'><b>{}</b></span>",
+                          "weeks":      "<span color='#16181d'><b>W{}</b></span>",
+                          "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                          "today":      "<span color='#ff6699'><b>{}</b></span>"
+                          }
+                },
+    "actions":  {
+                "on-click-right": "mode",
+                "on-click-forward": "tz_up",
+                "on-click-backward": "tz_down",
+                "on-scroll-up": "shift_up",
+                "on-scroll-down": "shift_down"
+                }
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", ""],
+        "on-scroll-up": "brightnessctl set 1%+",
+        "on-scroll-down": "brightnessctl set 1%-",
+        "min-length": 6
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "<span font='18' rise='-2500'>{icon}</span> {capacity}%",
+        "format-charging": "<span font='16' rise='-2500'></span> {capacity}%",
+        "format-plugged": "<span font='16' rise='-2500'></span> {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "pulseaudio": {
+        "inverval": 1,
+        "format": "<span font='16' rise='-2500'>{icon} </span>{volume}%",
+        "tooltip": false,
+        "format-muted": " Muted",
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "󰋌",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "<span font='20'>󰤨</span>",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{essid} - {ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}"
+    },
+
+"bluetooth": {
+    "format": " {status}",
+	"format-disabled": "", // an empty format will hide the module
+	"format-connected": " {num_connections} connected",
+	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+},
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
+}
