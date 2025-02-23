@@ -7,7 +7,7 @@ osu
 mpd/log
 mpd/database
 mpd/state
-wms/qtile/__pycache__/
+__pycache__
 
 # -*- mode: gitignore; -*-
 *~
