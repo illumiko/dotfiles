@@ -14,9 +14,11 @@ def dd(name,process):
     return 
 
 groups.append(ScratchPad('s', [
-    DropDown('mp', 'kitty ncmpcpp',width=0.5,height=0.6,x=0.25,y=0.2),
-    DropDown('vol', 'kitty pulsemixer',width=0.5,height=0.6,x=0.25,y=0.2),
-    DropDown('t', 'kitty',width=0.5,height=0.6,x=0.25,y=0.2),
+    DropDown('mp', 'kitty ncmpcpp',width=0.8,height=0.8,x=0.105,y=0.1),
+    DropDown('vol', 'kitty pulsemixer',width=0.8,height=0.8,x=0.105,y=0.1),
+    DropDown('t', 'kitty',width=0.8,height=0.8,x=0.105,y=0.1),
+    DropDown('sp', 'spotify',width=0.8,height=0.8,x=0.105,y=0.1),
+    DropDown('fm', 'kitty ranger',width=0.8,height=0.8,x=0.105,y=0.1),
     # DropDown('mp', 'kitty ncmpcpp',width=0.4,x=0.3,y=0.2),
 ]))
 

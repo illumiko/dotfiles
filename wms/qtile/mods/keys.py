@@ -50,6 +50,7 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawn("rofi -show run -m -1"), desc="Spawn a command using a prompt widget"),
+    Key(["mod1", "shift"], "l", lazy.spawn("i3lock -n -i /home/illumiko/dotfiles/wallpaper/Wallpaper/not_anime/catsunrise.png")),
     Key([mod, "shift"], "R", lazy.restart(), desc="Spawn a command using a prompt widget"),
     # Key([mod, "shift"], r, cmd_reload_config(), desc="")
     # Key(
@@ -97,6 +98,8 @@ keys = [
     Key(["mod1"],"1",lazy.group['s'].dropdown_toggle('mp')),
     Key(["mod1"],"2",lazy.group['s'].dropdown_toggle('vol')),
     Key(["mod1"],"3",lazy.group['s'].dropdown_toggle('t')),
+    Key(["mod1"],"4",lazy.group['s'].dropdown_toggle('sp')),
+    Key(["mod1"],"q",lazy.group['s'].dropdown_toggle('fm')),
 
      Key([mod, "control"], "b", lazy.hide_show_bar("all")),
 ]
@@ -133,7 +136,7 @@ for i in groups:
             Key(
                 [mod, "shift"],
                 i.name,
-                lazy.window.togroup(i.name, switch_group=True),
+                lazy.window.togroup(i.name, switch_group=False),
                 desc="Switch to & move focused window to group {}".format(i.name),
             ),
             # Or, use below if you prefer not to switch to that group.

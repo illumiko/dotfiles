@@ -4,7 +4,7 @@
 # alias g='lazygit'
 # alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
-alias discord="flatpak run com.discordapp.Discord"
+alias discord="brave --app-id=emkfdkfajgpbkjphhfoegmimeagefpjm"
 alias PJC="cd ~/Documents/Projects/course/" #dir shortcut 
 alias PJP="cd ~/Documents/Projects/personal/" #dir shortcut 
 alias PJT="cd ~/Documents/Projects/testing/" #dir shortcut 
