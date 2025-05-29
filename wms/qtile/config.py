@@ -1,6 +1,6 @@
 from libqtile import bar, layout, widget, hook, qtile
 
-# from libqtile.backend.wayland import InputConfig
+from libqtile.backend.wayland import InputConfig
 import os
 import subprocess
 from mods.keys import keys, groups
@@ -370,7 +370,7 @@ wmname = "LG3D"
 #
 @hook.subscribe.startup_once
 def autostart():
-    qtile.cmd_hide_show_bar('all','all')
+    # qtile.cmd_hide_show_bar('all','all')
     home = os.path.expanduser("~/dotfiles/wms/qtile/autostart.sh")
     subprocess.Popen([home])
     subprocess.run(
