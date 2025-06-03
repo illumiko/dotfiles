@@ -1,5 +1,5 @@
 from mods.groups import groups
-from libqtile.config import Key, Group, Drag, Click
+from libqtile.config import Key, Group, Drag, Click, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 mod = "mod4"
@@ -21,19 +21,31 @@ keys = [
     Key([mod], "F3",lazy.spawn("amixer -c 1 -- sset Master playback 5%+")),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+
+    KeyChord([mod], "r", [
+        Key([], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+        Key([], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+        Key([], "j", lazy.layout.grow_down(), desc="Grow window down"),
+        Key([], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    ],
+        mode=True,
+        name="resize"
+    ),
+    KeyChord([mod], "m", [
+        Key([], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+        Key([], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+        Key([], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+        Key([], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    ],
+        mode=True,
+        name="move"
+    ),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod], 'period', lazy.next_screen(), desc='Next monitor'),
     Key([mod], "f", lazy.window.toggle_maximize(), desc="Toggle maximize"),
+
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with

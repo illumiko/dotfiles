@@ -38,7 +38,7 @@ elif theme == 1:
         "b1": "#8f3f71",
     }
 gap = 15
-wallpaper = "~/dotfiles/wallpaper/Wallpaper/rando/forest.png"
+wallpaper = "~/dotfiles/wallpaper/Wallpaper/steinsGate/6.jpg"
 default_padding = 10
 
 default_bg = "#222222"
@@ -59,24 +59,25 @@ primary = "#ff5563"
 #######################################
 
 layouts = [
+    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(margin=15, border_width=3, border_focus="#ffffff"),
     layout.Bsp(margin=15, border_width=3, border_focus="#ffffff"),
-    layout.Zoomy(border_width=5),
+    # layout.Zoomy(border_width=5),
     layout.MonadTall(margin=10, border_width=5),
     layout.MonadWide(margin=10, border_width=5),
     layout.Floating(border_width=5),
-    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # layout.Max(),
-    # Try more layouts by unleashing below layouts.
+    # #Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Matrix(),
     # layout.RatioTile(),
     # layout.Tile(),
-    # layout.TreeTab(
-    #     bg_color = default_bg,
-    #     active_bg = primary,
-    #     active_fg = default_bg,
-    #     fontsize = 15
-    # ),
+    layout.TreeTab(
+        bg_color = default_bg,
+        active_bg = primary,
+        active_fg = default_bg,
+        fontsize = 15
+    ),
     # layout.VerticalTile(),
 ]
 
@@ -341,15 +342,21 @@ reconfigure_screens = True
 auto_minimize = True
 
 # When using the Wayland backend, this can be used to configure input devices.
-# wl_input_rules = {
-#         "type:keyboard": InputConfig(
-#             kb_repeat_delay=290,
-#             kb_repeat_rate=70,
-#             kb_options = "caps:backspace",
-#             sensitivity = 0.5,
-#
-#             ),
-# }
+wl_input_rules = {
+    "type:keyboard": InputConfig(
+        kb_repeat_delay=300,
+        kb_repeat_rate=40,
+        kb_options = "caps:backspace",
+        sensitivity = 0.5,),
+    "type:touchpad": InputConfig(
+        natural_scroll = False,
+        tap = True,
+        #gnome like touchpad goodness
+        click_method = "clickfinger",
+        accel_profile = 'adaptive',
+        pointer_accel = 0.7
+    ),
+ }
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
