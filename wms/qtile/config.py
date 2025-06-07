@@ -60,8 +60,8 @@ primary = "#ff5563"
 
 layouts = [
     # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    layout.Columns(margin=15, border_width=3, border_focus="#ffffff"),
-    layout.Bsp(margin=15, border_width=3, border_focus="#ffffff"),
+    layout.Columns(margin=15, border_width=3, border_focus="#ffffff",border_on_single="#ffffff"),
+    layout.Bsp(margin=15, border_width=3, border_focus="#ffffff", border_on_single="#ffffff"),
     # layout.Zoomy(border_width=5),
     layout.MonadTall(margin=10, border_width=5),
     layout.MonadWide(margin=10, border_width=5),
@@ -346,7 +346,7 @@ wl_input_rules = {
     "type:keyboard": InputConfig(
         kb_repeat_delay=300,
         kb_repeat_rate=40,
-        kb_options = "caps:backspace",
+        # kb_options = "caps:backspace",
         sensitivity = 0.5,),
     "type:touchpad": InputConfig(
         natural_scroll = False,

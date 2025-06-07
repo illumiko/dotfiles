@@ -1,4 +1,5 @@
 from mods.groups import groups
+from libqtile import qtile
 from libqtile.config import Key, Group, Drag, Click, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -57,7 +58,6 @@ keys = [
         desc="Toggle between split and unsplit sides of stack",
     ),
     Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
-    Key([mod], "c", lazy.spawn("flameshot gui"), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod,"shift"], "x", lazy.window.kill(), desc="Kill focused window"),
@@ -166,3 +166,17 @@ mouse = [
     Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
+
+if qtile.core.name == "x11":
+    keys.extend([
+        Key([mod], "c", lazy.spawn("flameshot gui"), desc="Launch terminal"),
+    ])
+elif qtile.core.name == "wayland":
+    keys.extend(
+        [
+
+            Key([mod], "c", lazy.spawn("/home/illumiko/dotfiles/wms/qtile/mods/screenshot.sh")),
+            # Key(["mod1","shift"], "l", lazy.spawn("loginctl lock-session"), desc="Lock the screen"),
+        ]
+
+    )
