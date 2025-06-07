@@ -1,0 +1,120 @@
+(defcfg
+  process-unmapped-keys yes
+)
+(defsrc)
+(defvar
+  tap-time 150
+  hold-time 150
+  )
+;; (defalias
+;;   a-mod (tap-hold $tap-time $hold-time a lctl)
+;;   l-mod (tap-hold $tap-time $hold-time l met)
+;;   )
+(deftemplate charmod (char mod)
+  (switch 
+    ((key-timing 3 less-than 250)) $char break
+    () (tap-hold-release-timeout 200 500 $char $mod $char) break
+  )
+)
+(deflayermap (main)
+  spc (t! charmod spc (layer-while-held mouse))
+  q (t! charmod q lctl)
+  o (t! charmod o met)
+  caps(t! charmod bspc (layer-while-held arrow))
+
+  ;;s (t! charmod s lsft)
+  ;;d (t! charmod d lctl)
+  ;;f (t! charmod f lalt)
+  ;;j (t! charmod j lalt)
+  ;;k (t! charmod k rctl)
+  ;;; (t! charmod ; rmet)
+  ;;v (t! charmod v ralt)
+  ;;m (t! charmod m ralt)
+)
+
+(deflayermap (arrow)
+    h left
+    j down
+    k up
+    l right
+)
+
+(deflayermap (mouse)
+	;; i (cmd woomer)
+	;; o (cmd $fsh pick_and_copy_color)
+	;; u (cmd $fsh screenshot_select)
+	j mlft
+	k mmid
+	l mrgt
+	[ mbck
+	] mfwd
+	, (mwheel-up    100 120)
+	. (mwheel-down  100 120)
+	m (mwheel-left  100 120)
+	/ (mwheel-right 100 120)
+	; (layer-while-held mouse-slow)
+	a (movemouse-accel-left  5 300 1 7)
+	s (movemouse-accel-down  5 300 1 7)
+	w (movemouse-accel-up    5 300 1 7)
+	d (movemouse-accel-right 5 300 1 7)
+)
+
+(deflayermap (mouse-slow)
+	a (movemouse-left  15 1)
+	s (movemouse-down  15 1)
+	w (movemouse-up    15 1)
+	d (movemouse-right 15 1)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (defcfg
+;; 	;; [[sort on]]
+;; 	;; movemouse-inherit-accel-state yes
+;; 	;; allow-hardware-repeat false
+;; 	concurrent-tap-hold yes
+;; 	;; danger-enable-cmd yes
+;; 	;; linux-dev-names-include ("  Varmilo", "soundcore Space Q45 (AVRCP)", "Kingston HyperX Pulsefire Haste")
+;; 	;; linux-unicode-termination space
+;; 	;; log-layer-changes no
+;; 	process-unmapped-keys yes
+;; 	;; rapid-event-delay 0
+;; 	;; [[sort off]]
+;; )
+;; (defvar tt 150)
+;; (defvar ht 150)
+;; (defvar ot 5000)
+;; (defvar fsh (fish -c))
+;;
+;; (defsrc)
+;; (deflayermap default
+;;  	spc (tap-hold-release $tt $ht spc (layer-while-held mouse))
+;;     a (tap-hold-release $tt $ht a lctl)
+;;     l (tap-hold-release $tt $ht l met)
+;; )
+;;
+;; (deflayermap (mouse)
+;; 	;; i (cmd woomer)
+;; 	;; o (cmd $fsh pick_and_copy_color)
+;; 	;; u (cmd $fsh screenshot_select)
+;; 	j mlft
+;; 	k mmid
+;; 	l mrgt
+;; 	[ mbck
+;; 	] mfwd
+;; 	, (mwheel-up    100 120)
+;; 	. (mwheel-down  100 120)
+;; 	m (mwheel-left  100 120)
+;; 	/ (mwheel-right 100 120)
+;; 	; (layer-while-held mouse-slow)
+;; 	s (movemouse-accel-left  5 300 1 7)
+;; 	d (movemouse-accel-down  5 300 1 7)
+;; 	e (movemouse-accel-up    5 300 1 7)
+;; 	f (movemouse-accel-right 5 300 1 7)
+;; )
+;;
+;; (deflayermap (mouse-slow)
+;; 	s (movemouse-left  15 1)
+;; 	d (movemouse-down  15 1)
+;; 	e (movemouse-up    15 1)
+;; 	f (movemouse-right 15 1)
+;; )
