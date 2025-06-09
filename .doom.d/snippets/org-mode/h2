@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: heading 2
+# key: h2
+# condition: 'auto
+# --
+** ${}

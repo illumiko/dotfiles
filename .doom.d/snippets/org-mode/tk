@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: checkbox
+# key: tk
+# condition: 'auto
+# --
+
+[ ] ${task}
