@@ -3,13 +3,19 @@
 * {
     border: none;
     border-radius: 0px;
-    font-family: "Comic Code";
+    font-family: "Maple Mono NF";
     /* font-weight: bold; */
     font-size: 20px;
     padding: 0px 0px;
+    margin: 0px;
     /* margin: 0px 0px; */
     /* min-height: 50px; */
+    /* background: #ffffff; */
+    background: @background;
+    /* background: rgba(242, 234, 187, 0.1); */
+    /* background: rgba(0,0,0,1); */
 }
+#custom-notification,
 #custom-power_profile,
 #custom-weather,
 #custom-music,
@@ -24,25 +30,24 @@
 #workspaces,
 #window,
 #tray,
+#mpd,
 #custom-notification
 #backlight {
     /* font-size: 18px; */
-    padding: 0 15px;
-    background: @background;
     color: @foreground-alt;
 }
 
 
 window#waybar {
-    background: rgba(0,0,0,0);
-    color: @foreground-alt;
+    /* background: rgba(0,0,0,0); */
 }
 #window,#workspaces button{
     /* font-size:16px; */
+    color: @foreground;
 }
 
 tooltip {
-    background: @background;
+    /* background: @background; */
     /* border-radius: 10px; */
     /* border-width: 2px; */
     border-style: solid;
@@ -61,7 +66,7 @@ tooltip {
 
 #custom-music {
     /* font-size: 12px; */
-    background :@background;
+    /* background :@background; */
     color: @foreground-alt;
 }
 
@@ -82,17 +87,15 @@ tooltip {
 }
 #battery {
     color: @color1;
-    padding-left: 20px;
-    padding-right: 20px;
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
     /* border-radius: 10px 10px 10px 10px; */
     /* margin-right: 10px */
 }
 #network  {
-    padding-right: 20px;
 }
 #network {
     color: @primary;
-    padding: 0;
     /* border-radius: 10px 0px 0px 10px; */
     /* border-radius: 10px 10px 10px 10px; */
     /* margin-right: 10px */
@@ -105,9 +108,6 @@ tooltip {
 .red {color: #ffffff;}
 
 #pulseaudio{
-    border-left: 0px;
-    border-right: 0px;
-    padding-left: 15px;
     /* border-radius: 0px 10px 10px 0px; */
     /* margin-right: 10px; */
 }
@@ -116,11 +116,24 @@ tooltip {
     border-right: 0px;
 }/*}}}*/
 #custom-notification {
-    padding: 0 10px;
-    font-size: 20px;
-    background: @background;
+    /* font-size: 20px; */
+    /* background: @background; */
 
 }
 #custom-power_profile {
-padding:0 20px;
+}
+
+#mpd.stopped {
+    color: @foreground;
+}
+
+#mpd.disconnect {
+    color: @color1
+}
+
+#battery,#bluetooth,#custom-notification{
+    padding: 0px 10px;
+}
+#pulseaudio,#mpd {
+    padding-left: 10px;
 }

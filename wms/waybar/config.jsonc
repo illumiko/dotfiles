@@ -7,18 +7,18 @@
     "spacing": 0,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 0,
+    // "height": 0,
     "margin-bottom": 0,
-    "margin-right":10,
-    "margin-left":10,
-    "margin-top": 5,
+    "margin-right":0,
+    "margin-left":0,
+    "margin-top": 0,
     // "margin-right":15,
     // "margin-left": 15,
     "fixed-center":true,
     // "width":500,
-    "modules-left": ["custom/notification","hyprland/workspaces"],
-    "modules-center":["clock"],
-    "modules-right": ["custom/power_profile","pulseaudio","battery","network","bluetooth","tray"],
+    "modules-left": ["custom/notification","hyprland/workspaces","mpd"],
+    "modules-center":[],
+    "modules-right": ["clock","custom/power_profile","pulseaudio","battery","network","bluetooth","tray"],
     // "modules-center": ["clock","custom/music","network",, "custom/power_profile","battery","backlight","pulseaudio","tray"],
     "hyprland/window": {
         "format": "{}",
@@ -47,9 +47,35 @@
         }
         // "ignored-players": ["firefox"]
     },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {artist}-{title} {elapsedTime:%M:%S}",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} Stopped",
+        "interval": 10,
+        "max-length":100,
+        "consume-icons": {
+            "on": " " // Icon shows only when "consume" is on
+        },
+        "random-icons": {
+            "on": "<span color=\"#ca4958\"> </span> " // Icon grayed out when "random" is off
+            // "off": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1"
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
     "hyprland/workspaces": {
-        "format": " <span font='20'><b>{icon}</b></span>  ",
-        "all-outputs":false,
+        "format": " {icon} ",
+        "all-outputs":true,
         "on-click": "activate",
         "active-only":false,
         "sort-by-number": false,
@@ -106,8 +132,8 @@
     },
 
     "clock": {
-    "format-alt": "{:%H:%M}  ",
-    "format": " {:%A, %B %d, %Y (%I:%M)}",
+    "format": " {:%p %I:%M }",
+    "format-alt": "  {:%A, %B %d, %Y (%I:%M %p)}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
                 "mode"          : "year",
@@ -146,16 +172,16 @@
             "warning": 30,
             "critical": 20
         },
-        "format": "<span font='18' rise='-2500'>{icon}</span> {capacity}%",
-        "format-charging": "<span font='16' rise='-2500'></span> {capacity}%",
-        "format-plugged": "<span font='16' rise='-2500'></span> {capacity}%",
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
         "format-icons": ["", "", "", "", ""]
     },
 
     "pulseaudio": {
         "inverval": 1,
-        "format": "<span font='16' rise='-2500'>{icon} </span>{volume}%",
+        "format": "{icon} {volume}%",
         "tooltip": false,
         "format-muted": " Muted",
         "on-click": "pamixer -t",
@@ -175,7 +201,7 @@
 
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "<span font='20'>󰤨</span>",
+        "format-wifi": "󰤨  {bandwidthDownBytes}",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{essid} - {ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
@@ -212,6 +238,6 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
-  },
+  }
 
 }
