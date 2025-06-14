@@ -5,41 +5,56 @@
     border-radius: 0px;
     font-family: "Maple Mono NF";
     /* font-weight: bold; */
-    font-size: 20px;
+    font-size: 16px;
     padding: 0px 0px;
     margin: 0px;
     /* margin: 0px 0px; */
     /* min-height: 50px; */
     /* background: #ffffff; */
-    background: @background;
     /* background: rgba(242, 234, 187, 0.1); */
-    /* background: rgba(0,0,0,1); */
 }
-#custom-notification,
-#custom-power_profile,
-#custom-weather,
-#custom-music,
-#clock,
-#disk,
-#memory,
-#battery,
-#pulseaudio,
-#network,
-#bluetooth,
-#temperature,
-#workspaces,
-#window,
-#tray,
-#mpd,
-#custom-notification
-#backlight {
-    /* font-size: 18px; */
-    color: @foreground-alt;
+menu,
+tooltip {
+  border-radius: 8px;
+  padding: 2px;
+  border: 1px solid lighter(@active);
+  /* background: alpha(@background, 0.6); */
+
+  color: lighter(@active);
 }
 
+
+.main .modules-left {
+  /* transition-property: background-color; */
+  /* transition-duration: 0.5s; */
+  /* margin: 6px 6px 6px 6px; */
+  /* border-radius: 4px; */
+  /* background: alpha(@background, 0.4); */
+  /* color: lighter(@active); */
+}
+
+.main .modules-right {
+  /* margin: 0px 6px 6px 6px; */
+  /* border-radius: 4px; */
+  /* background: alpha(@background, 0.4); */
+  color: lighter(@active);
+}
+
+.main .modules-right * {
+  font-size: 20px;
+  padding: 5px 0px;
+  /* margin: 5px 0px; */
+  /* background:red; */
+}
 
 window#waybar {
-    /* background: rgba(0,0,0,0); */
+    background: alpha(@background, 0.4)
+    /* padding: 0 20px; */
+    /* background: red; */
+}
+#workspaces {
+    padding-left: 2px;
+    background:transparent;
 }
 #window,#workspaces button{
     /* font-size:16px; */
@@ -57,7 +72,7 @@ tooltip {
 
 #workspaces button.active {
     color: @color1;
-    background: @background-alt;
+    /* background: @background-alt; */
 }
 
 #memory {
@@ -75,15 +90,15 @@ tooltip {
 }
 
 #clock {
-    color: @foreground-alt;
+    color: #ffffff;
     /* border-radius: 10px; */
     /* margin-left: 10px; */
     /* border-right: 10px; */
 }
 
 #pulseaudio {
-    color: @foreground-alt;
-    padding:0px;
+    color: @foreground;
+    /* padding:0px; */
 }
 #battery {
     color: @color1;
@@ -92,10 +107,9 @@ tooltip {
     /* border-radius: 10px 10px 10px 10px; */
     /* margin-right: 10px */
 }
-#network  {
-}
 #network {
     color: @primary;
+    padding-left: 0px;
     /* border-radius: 10px 0px 0px 10px; */
     /* border-radius: 10px 10px 10px 10px; */
     /* margin-right: 10px */
@@ -103,12 +117,15 @@ tooltip {
 
 #bluetooth {
     color: @primary;
+    padding-right: 5px;
 } 
 
 .red {color: #ffffff;}
 
 #pulseaudio{
     /* border-radius: 0px 10px 10px 0px; */
+    padding-right: 5px;
+
     /* margin-right: 10px; */
 }
 
@@ -131,9 +148,119 @@ tooltip {
     color: @color1
 }
 
-#battery,#bluetooth,#custom-notification{
-    padding: 0px 10px;
+#battery,#bluetooth{
+    /* padding:20px 0px ; */
+    /* margin: 20px; */
 }
-#pulseaudio,#mpd {
-    padding-left: 10px;
+
+#workspaces {
+    padding: 10px 0px;
+}
+/* #pulseaudio,#mpd { */
+/*     padding-left: 10px; */
+/* } */
+
+
+
+/* .clock * { */
+/*     font-size: 50px; */
+/* } */
+/**/
+/* .clock #clock { */
+/*     color: black; */
+/**/
+/* } */
+/**/
+/* window.clock#waybar { */
+/*     background:none; */
+/**/
+/* } */
+
+
+
+#battery {
+  /* border-radius: 8px; */
+  padding: 4px 0px;
+  /* margin: 4px 2px 4px 2px; */
+}
+
+#battery.discharging.warning {
+  animation-name: blink-yellow;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#battery.discharging.critical {
+  animation-name: blink-red;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+
+
+#pulseaudio.mic {
+  border-radius: 4px;
+  color: @foreground;
+  background: alpha(darker(@foreground), 0.6);
+  padding-left: 3px;
+}
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+  background: @primary;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+  margin-top: 4px;
+  min-width: 6px;
+  min-height: 60px;
+  border-radius: 8px;
+  background-color: alpha(@background, 0.6);
+  /* background: red; */
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+  border-radius: 8px;
+  background-color: lighter(@active);
+  /* background: red; */
+}
+
+#bluetooth.discoverable,
+#bluetooth.discovering,
+#bluetooth.pairable {
+  /* border-radius: 8px; */
+  animation-name: blink-active;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink-active {
+  to {
+    background-color: @active;
+    color: @foreground;
+  }
+}
+
+@keyframes blink-red {
+  to {
+    background-color: #c64d4f;
+    color: @foreground;
+  }
+}
+
+@keyframes blink-yellow {
+  to {
+    background-color: #cf9022;
+    color: @foreground;
+  }
 }

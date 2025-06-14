@@ -1,5 +1,7 @@
 @define-color foreground-alt  #f2ebbc;
 @define-color primary #7fb4ca;
 @define-color color1  #ff5d62;
-@define-color foreground #c0a36e;
-@define-color background   #181616;
+/* @define-color foreground #c0a36e; */
+/* @define-color background   #181616; */
+@define-color background #191919;
+@define-color foreground #c5c5c5;

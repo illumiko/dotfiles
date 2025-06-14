@@ -1,0 +1,75 @@
+{
+  "name": "mpd",
+  "layer": "bottom",
+  "reload_style_on_change": true,
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "spacing": 0,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 0,
+  "margin-bottom": 0,
+  "margin-right": 0,
+  "margin-left": 0,
+  "margin-top": 0,
+  // "margin-right":15,
+  // "margin-left": 15,
+  "fixed-center": true,
+  "modules-center": ["mpd"],
+  "modules-left": ["clock"],
+  // "width":500,
+
+  "clock": {
+    "format": " {:%I:%M %p }",
+    "format-alt": "  {:%A, %B %d, %Y (%I:%M %p)}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      // "weeks-pos"     : "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#209db6'><b>{}</b></span>",
+        "days": "<span color='#576175'><b>{}</b></span>",
+        "weeks": "<span color='#16181d'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b>{}</b></span>",
+      },
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down",
+    },
+  },
+  "mpd": {
+    // "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {artist}-{title} {elapsedTime:%M:%S}",
+    "format": "{stateIcon} {artist}-{title} {elapsedTime:%M:%S}",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} Stopped",
+    "interval": 10,
+    "max-length": 100,
+    "consume-icons": {
+      "on": " ", // Icon shows only when "consume" is on
+    },
+    "random-icons": {
+      "on": "<span color=\"#ca4958\"> </span> ", // Icon grayed out when "random" is off
+      // "off": " "
+    },
+    "repeat-icons": {
+      "on": " ",
+    },
+    "single-icons": {
+      "on": "1",
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": "",
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)",
+  },
+}
