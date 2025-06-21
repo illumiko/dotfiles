@@ -1,160 +1,378 @@
 #!/bin/sh
+#
+# ## autoload vcs and colors
+# autoload -Uz vcs_info
+# autoload -U colors && colors
+#
+# # enable only git 
+# zstyle ':vcs_info:*' enable git 
+#
+# # setup a hook that runs before every ptompt. 
+# precmd_vcs_info() { vcs_info }
+# precmd_functions+=( precmd_vcs_info )
+# setopt prompt_subst
+#
+# # add a function to check for untracked files in the directory.
+# # from https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+# zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+# # 
+# +vi-git-untracked(){
+#     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+#         git status --porcelain | grep '??' &> /dev/null ; then
+#         # This will show the marker if there are any untracked files in repo.
+#         # If instead you want to show the marker only if there are untracked
+#         # files in $PWD, use:
+#         #[[ -n $(git ls-files --others --exclude-standard) ]] ; then
+#         hook_com[staged]+='!' # signify new files with a bang
+#     fi
+# }
+#
+# zstyle ':vcs_info:*' check-for-changes true
+# # zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
+# zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
+#
+# # format our main prompt for hostname current folder, and permissions.
+# #PROMPT="%B%{$fg[blue]%}[%{$fg[white]%}%n%{$fg[red]%}@%{$fg[white]%}%m%{$fg[blue]%}] %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
+# #PROMPT="%{$fg[green]%}%n@%m %~ %{$reset_color%}%#> "
+# # PROMPT=" %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
+# # PROMPT+="\$vcs_info_msg_0_ "
+#
+# # TODO look into this for more colors
+# # https://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/
+# # also ascii escape codes
+#
+#
+#
+# # source: https://gist.github.com/romkatv/2a107ef9314f0d5f76563725b42f7cab
+# # Example of two-line ZSH prompt with four components.
+# #
+# #   top-left                         top-right
+# #   bottom-left                   bottom-right
+# #
+# # Components can be customized by editing set-prompt function.
+# #
+# # Installation:
+# #
+# #   (cd && curl -fsSLO https://gist.githubusercontent.com/romkatv/2a107ef9314f0d5f76563725b42f7cab/raw/two-line-prompt.zsh)
+# #   echo 'source ~/two-line-prompt.zsh' >>~/.zshrc
+# #
+# # Accompanying article:
+# # https://www.reddit.com/r/zsh/comments/cgbm24/multiline_prompt_the_missing_ingredient/
+# #
+# # This is only an example. If you are looking for a good ZSH prompt,
+# # try https://github.com/romkatv/powerlevel10k/.
+#
+# # Usage: prompt-length TEXT [COLUMNS]
+# #
+# # If you run `print -P TEXT`, how many characters will be printed
+# # on the last line?
+# #
+# # Or, equivalently, if you set PROMPT=TEXT with prompt_subst
+# # option unset, on which column will the cursor be?
+# #
+# # The second argument specifies terminal width. Defaults to the
+# # real terminal width.
+# #
+# # The result is stored in REPLY.
+# #
+# # Assumes that `%{%}` and `%G` don't lie.
+# #
+# # Examples:
+# #
+# #   prompt-length ''            => 0
+# #   prompt-length 'abc'         => 3
+# #   prompt-length $'abc\nxy'    => 2
+# #   prompt-length '❎'          => 2
+# #   prompt-length $'\t'         => 8
+# #   prompt-length $'\u274E'     => 2
+# #   prompt-length '%F{red}abc'  => 3
+# #   prompt-length $'%{a\b%Gb%}' => 1
+# #   prompt-length '%D'          => 8
+# #   prompt-length '%1(l..ab)'   => 2
+# #   prompt-length '%(!.a.)'     => 1 if root, 0 if not
+# function prompt-length() {
+#   emulate -L zsh
+#   local -i COLUMNS=${2:-COLUMNS}
+#   local -i x y=${#1} m
+#   if (( y )); then
+#     while (( ${${(%):-$1%$y(l.1.0)}[-1]} )); do
+#       x=y
+#       (( y *= 2 ))
+#     done
+#     while (( y > x + 1 )); do
+#       (( m = x + (y - x) / 2 ))
+#       (( ${${(%):-$1%$m(l.x.y)}[-1]} = m ))
+#     done
+#   fi
+#   typeset -g REPLY=$x
+# }
+#
+# # Usage: fill-line LEFT RIGHT
+# #
+# # Sets REPLY to LEFT<spaces>RIGHT with enough spaces in
+# # the middle to fill a terminal line.
+# function fill-line() {
+#   emulate -L zsh
+#   prompt-length $1
+#   local -i left_len=REPLY
+#   prompt-length $2 9999
+#   local -i right_len=REPLY
+#   local -i pad_len=$((COLUMNS - left_len - right_len - ${ZLE_RPROMPT_INDENT:-1}))
+#   if (( pad_len < 1 )); then
+#     # Not enough space for the right part. Drop it.
+#     typeset -g REPLY=$1
+#   else
+#     local pad=${(pl.$pad_len.. .)}  # pad_len spaces
+#     typeset -g REPLY=${1}${pad}${2}
+#   fi
+# }
+#
+# # Sets PROMPT and RPROMPT.
+# #
+# # Requires: prompt_percent and no_prompt_subst.
+# function set-prompt() {
+#   emulate -L zsh
+#   local git_branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+#   git_branch=${git_branch//\%/%%}  # escape '%'
+#
+#   # ~/foo/bar                     master
+#   # % █                            10:51
+#   #
+#   # Top left:      Blue current directory.
+#   # Top right:     Green Git branch.
+#   # Bottom left:   '#' if root, '%' if not; green on success, red on error.
+#   # Bottom right:  Yellow current time.
+#
+#   local top_left='%F{blue}%~%f %F{green}${git_branch}%f'
+#   local top_right="%F{green}${git_branch}%f"
+#   local bottom_left='%B%F{%(?.green.red)}%#%f%b '
+#   local bottom_right='%F{yellow}%T%f'
+#
+#   local REPLY
+#   fill-line "$top_left" "$top_right"
+#   PROMPT=$REPLY$'\n'$bottom_left
+#   RPROMPT=$bottom_right
+# }
+#
+# setopt no_prompt_{bang,subst} prompt_{cr,percent,sp}
+# autoload -Uz add-zsh-hook
+# add-zsh-hook precmd set-prompt
 
-## autoload vcs and colors
-autoload -Uz vcs_info
-autoload -U colors && colors
+ # Convert seconds into human readable time: 165392.3129 => 1d 21h 56m 32s
+# Based on https://github.com/sindresorhus/pretty-time-zsh
+_danielparks_theme_humanize_interval () {
+	float total_seconds=$1
+	integer days=$(( total_seconds / 60 / 60 / 24 ))
+	integer hours=$(( total_seconds / 60 / 60 % 24 ))
+	integer minutes=$(( total_seconds / 60 % 60 ))
+	float seconds=$(( total_seconds % 60 ))
 
-# enable only git 
-zstyle ':vcs_info:*' enable git 
+	(( days > 0 )) && print -n "${days}d "
+	(( hours > 0 )) && print -n "${hours}h "
+	(( minutes > 0 )) && print -n "${minutes}m "
 
-# setup a hook that runs before every ptompt. 
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-
-# add a function to check for untracked files in the directory.
-# from https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-# 
-+vi-git-untracked(){
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        git status --porcelain | grep '??' &> /dev/null ; then
-        # This will show the marker if there are any untracked files in repo.
-        # If instead you want to show the marker only if there are untracked
-        # files in $PWD, use:
-        #[[ -n $(git ls-files --others --exclude-standard) ]] ; then
-        hook_com[staged]+='!' # signify new files with a bang
-    fi
+	if (( total_seconds > 10 )) ; then
+		printf "%0.0fs" $seconds
+	else
+		printf "%0.1fs" $seconds
+	fi
 }
 
-zstyle ':vcs_info:*' check-for-changes true
-# zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
-zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
+_danielparks_theme_git_info_fallback () {
+	local gitstatus icons='' fg_color=green
 
-# format our main prompt for hostname current folder, and permissions.
-#PROMPT="%B%{$fg[blue]%}[%{$fg[white]%}%n%{$fg[red]%}@%{$fg[white]%}%m%{$fg[blue]%}] %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
-#PROMPT="%{$fg[green]%}%n@%m %~ %{$reset_color%}%#> "
-# PROMPT=" %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
-# PROMPT+="\$vcs_info_msg_0_ "
+	gitstatus=$(git status --porcelain=1 2>/dev/null) || return 0
 
-# TODO look into this for more colors
-# https://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/
-# also ascii escape codes
+	if echo $gitstatus | grep --quiet '^.[^ ?!]' ; then
+		# Unstaged changes
+		if echo $gitstatus | grep --quiet '^[^ ?!]' ; then
+			# Staged changes
+			icons+=' %1{⦿%}'
+		else
+			icons+=' %1{○%}'
+		fi
+		fg_color=red
+	elif echo $gitstatus | grep --quiet '^[^ ?!]' ; then
+		# Staged changes
+		icons+=' %1{●%}'
+		fg_color=yellow
+	fi
 
+	if echo $gitstatus | grep -F --quiet '??' ; then
+		# Untracked changes
+		fg_color=red
+	fi
 
-
-# source: https://gist.github.com/romkatv/2a107ef9314f0d5f76563725b42f7cab
-# Example of two-line ZSH prompt with four components.
-#
-#   top-left                         top-right
-#   bottom-left                   bottom-right
-#
-# Components can be customized by editing set-prompt function.
-#
-# Installation:
-#
-#   (cd && curl -fsSLO https://gist.githubusercontent.com/romkatv/2a107ef9314f0d5f76563725b42f7cab/raw/two-line-prompt.zsh)
-#   echo 'source ~/two-line-prompt.zsh' >>~/.zshrc
-#
-# Accompanying article:
-# https://www.reddit.com/r/zsh/comments/cgbm24/multiline_prompt_the_missing_ingredient/
-#
-# This is only an example. If you are looking for a good ZSH prompt,
-# try https://github.com/romkatv/powerlevel10k/.
-
-# Usage: prompt-length TEXT [COLUMNS]
-#
-# If you run `print -P TEXT`, how many characters will be printed
-# on the last line?
-#
-# Or, equivalently, if you set PROMPT=TEXT with prompt_subst
-# option unset, on which column will the cursor be?
-#
-# The second argument specifies terminal width. Defaults to the
-# real terminal width.
-#
-# The result is stored in REPLY.
-#
-# Assumes that `%{%}` and `%G` don't lie.
-#
-# Examples:
-#
-#   prompt-length ''            => 0
-#   prompt-length 'abc'         => 3
-#   prompt-length $'abc\nxy'    => 2
-#   prompt-length '❎'          => 2
-#   prompt-length $'\t'         => 8
-#   prompt-length $'\u274E'     => 2
-#   prompt-length '%F{red}abc'  => 3
-#   prompt-length $'%{a\b%Gb%}' => 1
-#   prompt-length '%D'          => 8
-#   prompt-length '%1(l..ab)'   => 2
-#   prompt-length '%(!.a.)'     => 1 if root, 0 if not
-function prompt-length() {
-  emulate -L zsh
-  local -i COLUMNS=${2:-COLUMNS}
-  local -i x y=${#1} m
-  if (( y )); then
-    while (( ${${(%):-$1%$y(l.1.0)}[-1]} )); do
-      x=y
-      (( y *= 2 ))
-    done
-    while (( y > x + 1 )); do
-      (( m = x + (y - x) / 2 ))
-      (( ${${(%):-$1%$m(l.x.y)}[-1]} = m ))
-    done
-  fi
-  typeset -g REPLY=$x
+	ref=$(git symbolic-ref --short HEAD 2>/dev/null) ||
+		ref=$(git show-ref --head -s --abbrev HEAD 2>/dev/null | head -n1)
+	print -n " %F{$fg_color}${ref}${icons}%f"
 }
 
-# Usage: fill-line LEFT RIGHT
-#
-# Sets REPLY to LEFT<spaces>RIGHT with enough spaces in
-# the middle to fill a terminal line.
-function fill-line() {
-  emulate -L zsh
-  prompt-length $1
-  local -i left_len=REPLY
-  prompt-length $2 9999
-  local -i right_len=REPLY
-  local -i pad_len=$((COLUMNS - left_len - right_len - ${ZLE_RPROMPT_INDENT:-1}))
-  if (( pad_len < 1 )); then
-    # Not enough space for the right part. Drop it.
-    typeset -g REPLY=$1
-  else
-    local pad=${(pl.$pad_len.. .)}  # pad_len spaces
-    typeset -g REPLY=${1}${pad}${2}
-  fi
+_danielparks_theme_git_info () {
+	eval $(git-status-vars 2>/dev/null)
+
+	if [[ -z $repo_state ]] ; then
+		# git-status-vars should always output repo_state
+		_danielparks_theme_git_info_fallback
+		return 0
+	fi
+
+	if [[ $repo_state == "NotFound" ]] ; then
+		return 0
+	fi
+
+	local icons='' fg_color=green
+	if [[ $unstaged_count > 0 ]] ; then
+		if [[ $staged_count > 0 ]] ; then
+			icons+=' %1{⦿%}'
+		else
+			icons+=' %1{○%}'
+		fi
+		fg_color=red
+	elif [[ $staged_count > 0 ]] ; then
+		icons+=' %1{●%}'
+		fg_color=yellow
+	fi
+
+	if [[ $conflicted_count > 0 ]] ; then
+		icons+=' %1{⚠️%} '
+	fi
+
+	if [[ $untracked_count > 0 ]] ; then
+		fg_color=red
+	fi
+
+	local ref=$head_ref1_short
+	if [[ -z $ref ]] ; then
+		ref=${head_hash:0:8}
+	fi
+
+	print -n " %F{$fg_color}${ref}${icons}%f"
+
+	if [[ $repo_state != "Clean" ]] ; then
+		# Convert "CamelCase" string to "camel case" (space separated).
+		local words=$(sed -e 's/\([a-z]\)\([A-Z]\)/\1 \2/g' <<<$repo_state)
+		print -n " %F{red}(${words:l})%f"
+	fi
+
+	fg_color=yellow
+	if [[ $head_ahead > 0 && $head_behind > 0 ]] ; then
+		fg_color=red
+	fi
+
+	if [[ $head_ahead > 0 ]] ; then
+		print -n " %F{${fg_color}}%1{↑%}${head_ahead}%f"
+	fi
+
+	if [[ $head_behind > 0 ]] ; then
+		print -n " %F{${fg_color}}%1{↓%}${head_behind}%f"
+	fi
+
+	if [[ $stash_count > 0 ]] ; then
+		print -n " %F{yellow}(${stash_count} stashed)%f"
+	fi
 }
 
-# Sets PROMPT and RPROMPT.
-#
-# Requires: prompt_percent and no_prompt_subst.
-function set-prompt() {
-  emulate -L zsh
-  local git_branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
-  git_branch=${git_branch//\%/%%}  # escape '%'
-
-  # ~/foo/bar                     master
-  # % █                            10:51
-  #
-  # Top left:      Blue current directory.
-  # Top right:     Green Git branch.
-  # Bottom left:   '#' if root, '%' if not; green on success, red on error.
-  # Bottom right:  Yellow current time.
-
-  local top_left='%F{blue}%~%f'
-  local top_right="%F{green}${git_branch}%f"
-  local bottom_left='%B%F{%(?.green.red)}%#%f%b '
-  local bottom_right='%F{yellow}%T%f'
-
-  local REPLY
-  fill-line "$top_left" "$top_right"
-  PROMPT=$REPLY$'\n'$bottom_left
-  RPROMPT=$bottom_right
+_danielparks_theme_virtualenv_info () {
+	[ $VIRTUAL_ENV ] && print -n " (${VIRTUAL_ENV:t})" || true
 }
 
-setopt no_prompt_{bang,subst} prompt_{cr,percent,sp}
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd set-prompt
+_danielparks_theme_precmd () {
+	local last_status=$?
+	local prompt_char
 
+	local startseconds=${_danielparks_theme_preexec_timestamp:-$EPOCHREALTIME}
+	float elapsed
+	(( elapsed = EPOCHREALTIME - startseconds ))
+	_danielparks_theme_preexec_timestamp=
+
+	# Output invisible information for terminal title.
+	if [[ $SSH_CONNECTION ]] ; then
+		print -Pn '\e]2;%n@%m %~\a'
+	else
+		print -Pn '\e]2;%~\a'
+	fi
+
+	# Build up $PROMPT (just printing the prompt won’t work if it doesn’t end with
+	# a newline — zsh clears the line when it prints $PROMPT).
+	PROMPT=
+
+	if [[ $danielparks_theme != minimal ]] ; then
+		if [[ $danielparks_theme != compact ]] ; then
+			if [[ $danielparks_theme != full && $danielparks_theme != ''
+					&& $danielparks_theme != $_danielparks_theme_last ]] ; then
+				print -Pn $'\n%B%F{red}Invalid setting for $danielparks_theme ('
+				print -n $danielparks_theme
+				print -P $'), expected one of "full", "compact", "minimal", or "".%f%b'
+			fi
+
+			# Blank line before prompt.
+			PROMPT+=$'\n'
+		fi
+
+		# if [[ $last_status == 0 ]] ; then
+		# 	PROMPT+='%f%k%B%F{green}%1{✔%}%f'
+		# else
+		# 	PROMPT+="%f%k%B%F{red}=${last_status}%f"
+		# fi
+
+		if [[ $SSH_CONNECTION ]] ; then
+			PROMPT+='%F{yellow}%n@%m%f ' # user@host
+		fi
+
+		if [[ $danielparks_theme != compact ]] ; then
+			PROMPT+=$(_danielparks_theme_git_info)
+		fi
+
+		PROMPT+='%F{white}%~%f ' # directory
+
+		if [[ $danielparks_theme != compact ]] ; then
+			PROMPT+='%F{blue}%D{%L:%M:%S %p}%f' # time
+			PROMPT+=$(_danielparks_theme_virtualenv_info)
+
+			if (( elapsed > 0.05 )) ; then
+				PROMPT+=" %F{yellow}$(_danielparks_theme_humanize_interval $elapsed)%f"
+			fi
+
+			PROMPT+=$'\n'
+		fi
+
+		prompt_char='%1{❯%}'
+		PROMPT+='%(!.%F{yellow}root.)'
+	else
+		# minimal
+		PROMPT+='%f%k%B%(!.%F{yellow}root.)'
+
+		if [[ $last_status == 0 ]] ; then
+			PROMPT+='%F{green}'
+			prompt_char='%1{✔%}'
+		else
+			PROMPT+='%F{red}'
+			prompt_char='%1{✘%}'
+		fi
+	fi
+
+	# 'root' if running as root. As many ❯ as $SHLVL.
+	PROMPT+="$(repeat $SHLVL print -n "$prompt_char")%f%k%b "
+
+	_danielparks_theme_last=$danielparks_theme
+}
+
+_danielparks_theme_preexec () {
+	_danielparks_theme_preexec_timestamp=$EPOCHREALTIME
+}
+
+	zmodload zsh/datetime
+	autoload -Uz add-zsh-hook
+
+	add-zsh-hook precmd _danielparks_theme_precmd
+	add-zsh-hook preexec _danielparks_theme_preexec
+
+	# if [[ -z $IGNORE_GIT_SUMMARY && -z $IGNORE_GIT_STATUS_VARS ]] \
+	# 		&& ! command -v git-status-vars &>/dev/null ; then
+	# 	print -Pn '%B%F{red}git-status-vars not installed.%f%b Run' >&2
+	# 	print -Pn ' `cargo install git-status-vars` or visit' >&2
+	# 	print -Pn ' https://github.com/danielparks/git-status-vars#installation' >&2
+	# 	print -Pn ' for instructions. Set IGNORE_GIT_STATUS_VARS=1 to suppress' >&2
+	# 	print -P ' this message.' >&2
+	# fi

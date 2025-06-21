@@ -1,35 +1,80 @@
+;;inspiration: https://github.com/jtroo/kanata/discussions/1656
 (defcfg
-  process-unmapped-keys yes
+process-unmapped-keys yes 
 )
-(defsrc)
-(defvar
-  tap-time 150
-  hold-time 150
-  )
-;; (defalias
-;;   a-mod (tap-hold $tap-time $hold-time a lctl)
-;;   l-mod (tap-hold $tap-time $hold-time l met)
-;;   )
-(deftemplate charmod (char mod)
-  (switch 
-    ((key-timing 3 less-than 250)) $char break
-    () (tap-hold-release-timeout 200 500 $char $mod $char) break
-  )
-)
-(deflayermap (main)
-  spc (t! charmod spc (layer-while-held mouse))
-  q (t! charmod q lctl)
-  o (t! charmod o met)
-  caps(t! charmod bspc (layer-while-held arrow))
+;; timeings should work fine for 40 to 80 words per minute; if you are slower or new to home row mods increasing them might help in getting started   
 
-  ;;s (t! charmod s lsft)
-  ;;d (t! charmod d lctl)
-  ;;f (t! charmod f lalt)
-  ;;j (t! charmod j lalt)
-  ;;k (t! charmod k rctl)
-  ;;; (t! charmod ; rmet)
-  ;;v (t! charmod v ralt)
-  ;;m (t! charmod m ralt)
+(defvirtualkeys
+  to-base (layer-switch base)
+)
+
+(defalias
+  alt (multi alt (layer-while-held mouse))
+  1 (multi alt 1)
+  2 (multi alt 2)
+  3 (multi alt 3)
+  q (multi alt q)
+)
+
+(defvar
+  tot 220  ;; tot=time out tap
+)
+
+(deftemplate homerowmod (timeouttap timeouthold keytap keyhold)
+	(tap-hold $timeouttap $timeouthold 
+		(multi $keytap  @.tp) 
+		$keyhold
+	)
+)
+
+(deftemplate bspc_map (timeouttap timeouthold keytap keyhold)
+	(tap-hold-release-timeout $timeouttap $timeouthold 
+		(multi $keytap  @.tp) 
+		$keyhold
+		(multi $keytap  @.tp) 
+	)
+)
+;; homerowmodfiltered is a way to force problematic bigrams to become letters not mods
+(deftemplate homerowmodfiltered (timeouttap timeouthold keytap keyhold typinglist)
+  (tap-hold-release-keys $timeouttap $timeouthold
+    (multi $keytap  @.tp)
+    $keyhold
+    $typinglist ;; Activates $keytap early if a key within $typinglist is pressed before hold activates.
+  )
+)
+
+(defalias
+  ;; call @.tp whenever you want to enter fast typing-layer
+  .tp (switch
+        ;;(lsft rsft) XX break ;; optional skip typing-layer activation for upper case keys might solves some FJ problems
+        ()  (multi
+              (layer-switch typing)
+              (on-idle 10 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
+            ) break
+      )
+  .spc-typing   (multi (layer-switch base) spc) ;; expilcitly leave typing-layer when hitting `space` - this allows experimenting with higher idle timeouts
+)
+(defsrc )
+(deflayermap (base)
+ ;; define home row mods (they act as typing-layer triggers, too )
+ a (t! homerowmod $tot 250 a lmet)
+ s (t! homerowmod $tot 250 s lctl)
+ f (t! homerowmod $tot 160 f lsft)
+ j (t! homerowmod $tot 160 j rsft)
+ k (t! homerowmod $tot 160 k rctl)
+ ;; l (t! homerowmod $tot 300 l lctl)
+ ;; s (t! homerowmodfiltered $tot 400 s lalt (a)) ;; example fix of the 'as' role 
+ ;; l (t! homerowmod $tot 400 l ralt)
+ ;; alt @alt
+ sft (t! homerowmod $tot 150 sft (layer-while-held mouse))
+ ; (t! homerowmod $tot 250 ; rmet)
+ ;; define each letter as typing-layer trigger
+ q (multi q @.tp) w (multi w @.tp) e (multi e @.tp) r (multi r @.tp) t (multi t @.tp) y (multi y @.tp) u (multi u @.tp) i (multi i @.tp) o (multi o @.tp) p (multi p @.tp) g (multi g @.tp) h (multi h @.tp) z (multi z @.tp) x (multi x @.tp) c (multi c @.tp) v (multi v @.tp) b (multi b @.tp) n (multi n @.tp) m (multi m @.tp) 
+ caps(t! homerowmod 10 300 bspc (layer-while-held arrow))
+)
+(deflayermap (typing) 
+ a a b b c c d d e e f f g g h h i i j j k k l l m m n n o o p p q q r r s s t t u u v v w w x x y y z z 
+ caps XX ;; key deactivations of caps,... are optional
 )
 
 (deflayermap (arrow)
@@ -43,9 +88,9 @@
 	;; i (cmd woomer)
 	;; o (cmd $fsh pick_and_copy_color)
 	;; u (cmd $fsh screenshot_select)
-	j mlft
-	k mmid
-	l mrgt
+	q mlft
+	f mmid
+	e mrgt
 	[ mbck
 	] mfwd
 	, (mwheel-up    100 120)
@@ -65,6 +110,85 @@
 	w (movemouse-up    15 1)
 	d (movemouse-right 15 1)
 )
+
+
+
+
+
+
+
+
+;; ;; default
+;; (defcfg
+;;   process-unmapped-keys yes
+;; )
+;; (defsrc)
+;; (defvar
+;;   tap-time 150
+;;   hold-time 150
+;;   )
+;; ;; (defalias
+;; ;;   a-mod (tap-hold $tap-time $hold-time a lctl)
+;; ;;   l-mod (tap-hold $tap-time $hold-time l met)
+;; ;;   )
+;; (deftemplate charmod (char mod)
+;;   (switch 
+;;     ((key-timing 3 less-than 250)) $char break
+;;     () (tap-hold-release-timeout 200 500 $char $mod $char) break
+;;   )
+;; )
+;; (deflayermap (main)
+  ;; spc (t! charmod spc (layer-while-held mouse))
+;;   q (t! charmod q lctl)
+;;   o (t! charmod o met)
+;;   caps(t! charmod bspc (layer-while-held arrow))
+;;
+;;   ;;s (t! charmod s lsft)
+;;   ;;d (t! charmod d lctl)
+;;   ;;f (t! charmod f lalt)
+;;   ;;j (t! charmod j lalt)
+;;   ;;k (t! charmod k rctl)
+;;   ;;; (t! charmod ; rmet)
+;;   ;;v (t! charmod v ralt)
+;;   ;;m (t! charmod m ralt)
+;; )
+;;
+;; (deflayermap (arrow)
+;;     h left
+;;     j down
+;;     k up
+;;     l right
+;; )
+;;
+;; (deflayermap (mouse)
+;; 	;; i (cmd woomer)
+;; 	;; o (cmd $fsh pick_and_copy_color)
+;; 	;; u (cmd $fsh screenshot_select)
+;; 	j mlft
+;; 	k mmid
+;; 	l mrgt
+;; 	[ mbck
+;; 	] mfwd
+;; 	, (mwheel-up    100 120)
+;; 	. (mwheel-down  100 120)
+;; 	m (mwheel-left  100 120)
+;; 	/ (mwheel-right 100 120)
+;; 	; (layer-while-held mouse-slow)
+;; 	a (movemouse-accel-left  5 300 1 7)
+;; 	s (movemouse-accel-down  5 300 1 7)
+;; 	w (movemouse-accel-up    5 300 1 7)
+;; 	d (movemouse-accel-right 5 300 1 7)
+;; )
+;;
+;; (deflayermap (mouse-slow)
+;; 	a (movemouse-left  15 1)
+;; 	s (movemouse-down  15 1)
+;; 	w (movemouse-up    15 1)
+;; 	d (movemouse-right 15 1)
+;; )
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (defcfg

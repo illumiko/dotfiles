@@ -3,7 +3,7 @@
 # alias f='zi'
 # alias g='lazygit'
 # alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
-
+alias rg="rg --no-ignore --hidden"
 alias discord="brave --app-id=emkfdkfajgpbkjphhfoegmimeagefpjm"
 alias PJC="cd ~/Documents/Projects/course/" #dir shortcut 
 alias PJP="cd ~/Documents/Projects/personal/" #dir shortcut 
@@ -22,7 +22,7 @@ alias luapg='nvim ~/Documents/Projects/testing/lua/playground/playground.lua'
 alias tmux='tmux -f $HOME/dotfiles/tmux/.tmux.conf -u'
 alias journal="nvim ~/Documents/norg/index.norg"
 alias yt-dlp='yt-dlp --config-locations "$DOT/yt-dlp.conf"'
-alias nl='redshift -o -l 0:0 -t 5000:5000'
+# alias nl='redshift -o -l 0:0 -t 5000:5000'
 alias nx='redshift -x'
 alias pomodoro="go run ~/Documents/Projects/personal/godoro/main.go"
 alias r115="ollama run deepseek-r1:1.5b"

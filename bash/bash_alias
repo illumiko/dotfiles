@@ -15,7 +15,6 @@ alias luapg='nvim ~/Documents/Projects/testing/lua/playground/playground.lua'
 alias tmux='tmux -f ~/.config/tmux/.tmux.conf -u'
 alias journal="nvim ~/Documents/norg/index.norg"
 alias yt-dlp='yt-dlp --config-locations "$DOT/yt-dlp.conf"'
-alias nl='redshift -o -l 0:0 -t 5000:5000'
 alias nx='redshift -x'
 alias pomodoro="go run ~/Documents/Projects/personal/godoro/main.go"
 alias nv="nvim"

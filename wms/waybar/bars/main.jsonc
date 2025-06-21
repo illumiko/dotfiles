@@ -2,7 +2,7 @@
   "name": "main",
   "layer": "bottom",
   "reload_style_on_change": true,
-  "position": "left",
+  "position": "right",
   "mod": "dock",
   "exclusive": true,
   "spacing": 0,
@@ -46,6 +46,7 @@
     "all-outputs": true,
     "on-click": "activate",
     "active-only": false,
+    "move-to-monitor": true,
     "sort-by-number": false,
     "persistent-workspaces": {
       "*": [1, 2, 3, 5, 6, 7, 8, 9],

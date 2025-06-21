@@ -1,7 +1,7 @@
 [
     {
         "include":[
-            "/home/illumiko/dotfiles/wms/waybar/bars/left.jsonc"
+            "/home/illumiko/dotfiles/wms/waybar/bars/main.jsonc"
         ]
     },
     {

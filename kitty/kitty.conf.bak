@@ -87,6 +87,6 @@ map ctrl+down neighboring_window down
 
 
 # BEGIN_KITTY_THEME
-# Solarized Dark Higher Contrast
+# Solarized Dark
 include current-theme.conf
 # END_KITTY_THEME

@@ -133,6 +133,7 @@ tooltip {
     border-right: 0px;
 }/*}}}*/
 #custom-notification {
+    /* padding-right: 0px; */
     /* font-size: 20px; */
     /* background: @background; */
 
@@ -155,6 +156,7 @@ tooltip {
 
 #workspaces {
     padding: 10px 0px;
+    padding-left: 3px;
 }
 /* #pulseaudio,#mpd { */
 /*     padding-left: 10px; */
