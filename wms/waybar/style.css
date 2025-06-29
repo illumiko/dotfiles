@@ -3,7 +3,7 @@
 * {
     border: none;
     border-radius: 0px;
-    font-family: "Maple Mono NF";
+    font-family: "Ubuntu Nerd Font";
     /* font-weight: bold; */
     font-size: 16px;
     padding: 0px 0px;
@@ -59,6 +59,8 @@ window#waybar {
 #window,#workspaces button{
     /* font-size:16px; */
     color: @foreground;
+    padding:3px 0px;
+
 }
 
 tooltip {
@@ -124,7 +126,7 @@ tooltip {
 
 #pulseaudio{
     /* border-radius: 0px 10px 10px 0px; */
-    padding-right: 5px;
+    padding-right: 0px;
 
     /* margin-right: 10px; */
 }
