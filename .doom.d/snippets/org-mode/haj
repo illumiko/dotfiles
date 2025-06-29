@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: starting template
+# key: haj
+# condition: 'auto
+# --
+on average each session means 50min to 1h
+* Tasks
+** Physics
+** Math
+** Chemistry
