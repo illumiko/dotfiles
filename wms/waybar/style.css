@@ -3,7 +3,6 @@
 * {
     border: none;
     border-radius: 0px;
-    font-family: "Ubuntu Nerd Font";
     /* font-weight: bold; */
     font-size: 16px;
     padding: 0px 0px;
@@ -12,6 +11,13 @@
     /* min-height: 50px; */
     /* background: #ffffff; */
     /* background: rgba(242, 234, 187, 0.1); */
+}
+.top * {
+    font-family: "Ubuntu Nerd Font";
+}
+
+.main * {
+    font-family: "Ubuntu Nerd Font";
 }
 menu,
 tooltip {
@@ -80,7 +86,12 @@ tooltip {
 #memory {
     color: @primary;
 }
-
+#custom-audio_idle_inhibitor {
+    color:@color1;
+}
+#submap {
+    color:@color1;
+}
 #custom-music {
     /* font-size: 12px; */
     /* background :@background; */
@@ -143,19 +154,22 @@ tooltip {
 #custom-power_profile {
 }
 
-#mpd.stopped {
+#top.stopped {
     color: @foreground;
 }
 
-#mpd.disconnect {
+#top.disconnect {
     color: @color1
 }
 
-#battery,#bluetooth{
+#pulseaudio{
     /* padding:20px 0px ; */
     /* margin: 20px; */
+    padding-right:5px;
 }
-
+#power {
+    padding-right:2px;
+}
 #workspaces {
     padding: 10px 0px;
     padding-left: 3px;

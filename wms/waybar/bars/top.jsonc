@@ -1,5 +1,5 @@
 {
-  "name": "mpd",
+  "name": "top",
   "layer": "bottom",
   "reload_style_on_change": true,
   "position": "top",
@@ -17,9 +17,31 @@
   // "margin-left": 15,
   "fixed-center": true,
   "modules-center": ["mpd"],
-  "modules-left": ["clock"],
+  "modules-left": ["custom/audio_idle_inhibitor","hyprland/submap","clock",],
+  "modules-right": ["custom/test"],
+  "custom/test": {
+    "format": "󰀻",
+    "on-click": "rofi -show run",
+  },
   // "width":500,
 
+"custom/audio_idle_inhibitor": {
+    "format": "{icon}",
+    "exec": "sway-audio-idle-inhibit --dry-print-both-waybar",
+    "exec-if": "which sway-audio-idle-inhibit",
+    "return-type": "json",
+    "format-icons": {
+        "output": " ",
+        "input": " ",
+        "output-input": "  ",
+        "none": "",
+    },
+},
+  "hyprland/submap": {
+    "format": "✌️ {}",
+    "max-length": 8,
+    "tooltip": false,
+  },
   "clock": {
     "format": " {:%I:%M %p }",
     "format-alt": "  {:%A, %B %d, %Y (%I:%M %p)}",
