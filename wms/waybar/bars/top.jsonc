@@ -17,7 +17,7 @@
   // "margin-left": 15,
   "fixed-center": true,
   "modules-center": ["mpd"],
-  "modules-left": ["custom/audio_idle_inhibitor","hyprland/submap","clock",],
+  "modules-left": ["custom/audio_idle_inhibitor","hyprland/submap","clock"],
   "modules-right": ["custom/test"],
   "custom/test": {
     "format": "󰀻",
