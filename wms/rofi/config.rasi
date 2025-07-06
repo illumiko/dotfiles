@@ -10,7 +10,7 @@
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "run,drun,recursivebrowser,window";
+	modi:                       "run,filebrowser,drun,recursivebrowser,window";
     show-icons:                 true;
     display-drun:               "";
     display-run:                "";
