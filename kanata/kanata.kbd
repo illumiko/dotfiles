@@ -58,16 +58,16 @@ process-unmapped-keys yes
 (deflayermap (base)
  ;; define home row mods (they act as typing-layer triggers, too )
  a (t! homerowmod $tot 250 a lmet)
- s (t! homerowmod $tot 250 s lctl)
- f (t! homerowmod $tot 160 f lsft)
- j (t! homerowmod $tot 160 j rsft)
- k (t! homerowmod $tot 160 k rctl)
+ s (t! homerowmod $tot 120 s lctl)
+ f (t! homerowmod $tot 120 f lsft)
+ j (t! homerowmod $tot 120 j lsft)
+ k (t! homerowmod $tot 120 k lctl)
  ;; l (t! homerowmod $tot 300 l lctl)
  ;; s (t! homerowmodfiltered $tot 400 s lalt (a)) ;; example fix of the 'as' role 
  ;; l (t! homerowmod $tot 400 l ralt)
  ;; alt @alt
  sft (t! homerowmod $tot 150 sft (layer-while-held mouse))
- ; (t! homerowmod $tot 250 ; rmet)
+ ; (t! homerowmod $tot 250 ; lmet)
  ;; define each letter as typing-layer trigger
  q (multi q @.tp) w (multi w @.tp) e (multi e @.tp) r (multi r @.tp) t (multi t @.tp) y (multi y @.tp) u (multi u @.tp) i (multi i @.tp) o (multi o @.tp) p (multi p @.tp) g (multi g @.tp) h (multi h @.tp) z (multi z @.tp) x (multi x @.tp) c (multi c @.tp) v (multi v @.tp) b (multi b @.tp) n (multi n @.tp) m (multi m @.tp) 
  caps(t! homerowmod 10 300 bspc (layer-while-held arrow))
