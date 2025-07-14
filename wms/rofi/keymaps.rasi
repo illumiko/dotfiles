@@ -5,10 +5,10 @@ configuration {
     kb-accept-entry: "";
     kb-remove-char-back: "BackSpace";
     kb-clear-line: "";
-    kb-row-up: "Control+k";
-    kb-row-down: "Control+j";
-    kb-mode-next: "Control+l";
-    kb-mode-previous: "Control+h";
+    kb-row-up: "Control+k,Up";
+    kb-row-down: "Control+j,Down";
+    kb-mode-next: "Control+l,left";
+    kb-mode-previous: "Control+h,right";
     kb-accept-entry: "Return";
 }
 
