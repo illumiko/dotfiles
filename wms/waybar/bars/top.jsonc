@@ -18,10 +18,18 @@
   "fixed-center": true,
   "modules-center": ["mpd"],
   "modules-left": ["custom/audio_idle_inhibitor","hyprland/submap","clock"],
-  "modules-right": ["custom/test"],
+  "modules-right": ["custom/emacs","custom/ymuse","custom/test"],
   "custom/test": {
     "format": "󰀻",
     "on-click": "rofi -show run",
+  },
+  "custom/emacs": {
+    "format": " ",
+    "on-click": "hyprctl dispatch togglespecialworkspace emacs",
+  },
+  "custom/ymuse": {
+    "format": " ",
+    "on-click": "hyprctl dispatch togglespecialworkspace ymuse",
   },
   // "width":500,
 
@@ -84,6 +92,8 @@
     "repeat-icons": {
       "on": " ",
     },
+    "on-click" : "mpc toggle",
+    "on-click-right": "hyprctl dispatch togglespecialworkspace ymuse",
     "single-icons": {
       "on": "1",
     },
