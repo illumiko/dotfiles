@@ -67,7 +67,9 @@
     (when yas-minor-mode
       (let ((yas-buffer-local-condition ''(require-snippet-condition . auto)))
         (yas-expand))))
-  (add-hook 'post-command-hook #'my-yas-try-expanding-auto-snippets))
+  (add-hook 'post-command-hook #'my-yas-try-expanding-auto-snippets)
+  (add-hook 'evil-insert-state-exit-hook #'yas-exit-all-snippets)
+)
 
 (after! dired
   (map! :map dired-mode-map

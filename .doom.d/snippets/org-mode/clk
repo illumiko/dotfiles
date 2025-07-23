@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: clk-range
+# key: sessb
+# condition: 'auto
+# --
+`(let* ((mins (string-to-number (read-from-minibuffer "Minutes duration: ")))
+        (now (current-time))
+        (then (time-subtract now (seconds-to-time (* mins 60))))
+        (fmt "[%Y-%m-%d %a %H:%M]")
+        (start (format-time-string fmt then))
+        (end   (format-time-string fmt now))
+        (dur   (let* ((diff (time-subtract now then))
+                      (sec (floor (time-to-seconds diff)))
+                      (hh (/ sec 3600))
+                      (mm (/ (% sec 3600) 60)))
+                 (format " %d:%02d" hh mm))))
+   (format "CLOCK: %s--%s =>%s" start end dur))`
