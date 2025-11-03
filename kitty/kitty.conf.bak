@@ -11,6 +11,7 @@
 //transparency
 background_opacity 1.0
 window_padding_width 5
+cursor_trail 1
 
 // font
 # font_family JetBrainsMono Nerd Font
@@ -87,6 +88,6 @@ map ctrl+down neighboring_window down
 
 
 # BEGIN_KITTY_THEME
-# Solarized Dark Higher Contrast
+# PaperColor Light
 include current-theme.conf
 # END_KITTY_THEME
