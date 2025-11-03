@@ -30,6 +30,7 @@ alias r17="ollama run deepseek-r1:7b"
 # alias nv="/home/illumiko/.local/share/bob/nvim-bin/nvim"
 # alias nvim="/home/illumiko/.local/share/bob/nvim-bin/nvim"
 alias em="emacs"
+alias v="nvim"
 alias ls="ls -X1h"
 alias ytmusic='/usr/bin/qtws /usr/share/qtws-apps/youtube-music/youtube-music.qtws --disable-seccomp-filter-sandbox --register-pepper-plugins="/usr/lib/qt/plugins/ppapi/libwidevinecdmadapter.so; application/x-ppapi-widevine-cdm"'
 alias mp="ncmpcpp"
