@@ -32,7 +32,10 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-tokyo-night)
+(setq
+ doom-theme 'doom-tokyo-night
+ doom-font (font-spec :family "Maple Mono NF" :size 20)
+)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -44,8 +47,8 @@
 (setq evil-escape-key-sequence "jk"
       evil-escape-delay 0.1
 )
+(after! org
 (setq org-directory "~/Documents/org/"
-      doom-font (font-spec :family "Maple Mono NF" :size 20)
       org-agenda-files '("~/Documents/org/inbox.org" "~/Documents/org/gtd.org" "~/Documents/org/projects/")
       org-default-notes-file "~/org/inbox.org"
       org-journal-date-prefix "#+TITLE: "
@@ -59,7 +62,7 @@
                               ("n" "Note" entry
                               (file "~/Documents/org/inbox.org")
                               "* %u %?\n"))
-)
+))
 
 ;; Function that tries to auto-expand YaSnippets
 (after! yasnippet
@@ -79,6 +82,7 @@
         :n "M-k" #'dired-previous-line
   )
 )
+
 (map! :leader
       :desc "Open Dired" "e" #'find-file
       :desc "clears highlight" "h h" #'evil-ex-nohighlight
