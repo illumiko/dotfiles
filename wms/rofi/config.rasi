@@ -59,7 +59,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       1500px;
+    width:                       90%;
     height:                      600px;
     x-offset:                    0px;
     y-offset:                    0px;
@@ -72,8 +72,8 @@ window {
     border-radius:               10px;
     border-color:                @border-colour;
     cursor:                      "default";
-    /* Backgroud Colors */
-    background-color:            #000000aa;
+    /*transparent Backgroud Colors */
+    background-color:            #000000; 
     /* Backgroud Image */
     //background-image:          url("/path/to/image.png", none);
     /* Simple Linear Gradient */
