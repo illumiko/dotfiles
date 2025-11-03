@@ -1,12 +1,12 @@
 [
     {
         "include":[
-            "/home/illumiko/dotfiles/wms/waybar/bars/main.jsonc"
+            "~/dotfiles/wms/waybar/bars/main.jsonc"
         ]
     },
     {
         "include":[
-            "/home/illumiko/dotfiles/wms/waybar/bars/top.jsonc"
+            "~/dotfiles/wms/waybar/bars/top.jsonc"
         ]
     }
 ]

@@ -21,7 +21,7 @@
   "modules-right": ["custom/pomodoro","custom/emacs","custom/test"],
   "custom/pomodoro": {
       "format": " {} ",
-      "exec":"/home/illumiko/dotfiles/wms/waybar/scripts/go_timer/start"
+      "exec":"go run ~/dotfiles/wms/waybar/scripts/go_timer/main.go"
   },
   "custom/test": {
     "format": "󰀻",
