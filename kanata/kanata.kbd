@@ -49,7 +49,7 @@ process-unmapped-keys yes
         ;;(lsft rsft) XX break ;; optional skip typing-layer activation for upper case keys might solves some FJ problems
         ()  (multi
               (layer-switch typing)
-              (on-idle 10 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
+              (on-idle 15 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
             ) break
       )
   .spc-typing   (multi (layer-switch base) spc) ;; expilcitly leave typing-layer when hitting `space` - this allows experimenting with higher idle timeouts
@@ -58,10 +58,10 @@ process-unmapped-keys yes
 (deflayermap (base)
  ;; define home row mods (they act as typing-layer triggers, too )
  a (t! homerowmod $tot 250 a lmet)
- s (t! homerowmod $tot 120 s lctl)
- f (t! homerowmod $tot 120 f lsft)
- j (t! homerowmod $tot 120 j lsft)
- k (t! homerowmod $tot 120 k lctl)
+ s (t! homerowmod $tot 160 s lctl)
+ f (t! homerowmod $tot 160 f lsft)
+ j (t! homerowmod $tot 160 j lsft)
+ k (t! homerowmod $tot 160 k lctl)
  ;; l (t! homerowmod $tot 300 l lctl)
  ;; s (t! homerowmodfiltered $tot 400 s lalt (a)) ;; example fix of the 'as' role 
  ;; l (t! homerowmod $tot 400 l ralt)
@@ -92,10 +92,10 @@ process-unmapped-keys yes
 	e mrgt
 	[ mbck
 	] mfwd
-	, (mwheel-up    100 120)
-	. (mwheel-down  100 120)
-	m (mwheel-left  100 120)
-	/ (mwheel-right 100 120)
+	c (mwheel-up    100 120)
+	x (mwheel-down  100 120)
+	z (mwheel-left  100 120)
+	v (mwheel-right 100 120)
 	; (layer-while-held mouse-slow)
 	a (movemouse-accel-left  5 300 1 7)
 	s (movemouse-accel-down  5 300 1 7)
