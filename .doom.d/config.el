@@ -34,7 +34,7 @@
 ;; `load-theme' function. This is the default:
 (setq
  doom-theme 'doom-tokyo-night
- doom-font (font-spec :family "Maple Mono NF" :size 20)
+ doom-font (font-spec :family "VictorMono NF" :size 20)
 )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
