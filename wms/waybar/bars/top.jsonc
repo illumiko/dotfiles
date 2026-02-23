@@ -20,8 +20,10 @@
   "modules-left": ["custom/audio_idle_inhibitor","hyprland/submap","clock"],
   "modules-right": ["custom/pomodoro","custom/emacs","custom/test"],
   "custom/pomodoro": {
-      "format": " {} ",
-      "exec":"go run ~/dotfiles/wms/waybar/scripts/go_timer/main.go"
+      "format": "{text}",
+      "return-type": "json",
+      // "interval": 60,
+      "exec":"go run $HOME/dotfiles/wms/waybar/scripts/go_timer/main.go"
   },
   "custom/test": {
     "format": "󰀻",

@@ -3,6 +3,7 @@
 # alias f='zi'
 # alias g='lazygit'
 # alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+alias paru='paru --bottomup'
 alias rg="rg --no-ignore --hidden"
 alias discord="brave --app-id=emkfdkfajgpbkjphhfoegmimeagefpjm"
 alias PJC="cd ~/Documents/Projects/course/" #dir shortcut 
@@ -11,6 +12,7 @@ alias PJT="cd ~/Documents/Projects/testing/" #dir shortcut
 alias nvrc='nvim ~/.config/nvim/init.lua' #open nvimrc
 alias python='python3.8' #open nvimrc
 alias poweroff='systemctl poweroff' #turning off pc 
+alias isleep='systemctl sleep && hyprlock' #turning off pc 
 alias anime='~/Apps/ani-cli/ani-cli' #anime cli
 alias se='du -a ~/.config/* ~/Documents/Projects/* | awk "{print $2}" | fzf | xargs -r $EDITOR ; '
 alias todo='nvim ~/Documents/norg/main/index.norg'
@@ -40,7 +42,9 @@ alias MM='xsetwacom set "UGTABLET 6 inch PenTablet stylus" MapToOutput eDP'
 alias SM='xsetwacom set "UGTABLET 6 inch PenTablet stylus" MapToOutput HDMI-A-0'
 
 fzf_cd(){cd $(fzf --walker=dir --walker-root=$HOME)}
+fzf_mv(){mv $(fzf --multi | tr '\n' ' ') $(fzf --walker=dir)}
 alias cdf="fzf_cd"
+alias mvf="fzf_mv"
 
 
 
