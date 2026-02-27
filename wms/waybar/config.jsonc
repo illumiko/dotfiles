@@ -1,10 +1,12 @@
 [
     {
+        "reload_style_on_change": true,
         "include":[
             "~/dotfiles/wms/waybar/bars/main.jsonc"
         ]
     },
     {
+        "reload_style_on_change": true,
         "include":[
             "~/dotfiles/wms/waybar/bars/top.jsonc"
         ]

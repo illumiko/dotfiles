@@ -17,13 +17,13 @@
   // "margin-left": 15,
   "fixed-center": true,
   "modules-center": ["mpd"],
-  "modules-left": ["custom/audio_idle_inhibitor","hyprland/submap","clock"],
-  "modules-right": ["custom/pomodoro","custom/emacs","custom/test"],
+  "modules-left": ["hyprland/submap","clock"],
+  "modules-right": ["custom/emacs","custom/test"],
   "custom/pomodoro": {
-      "format": "{text}",
-      "return-type": "json",
+      "format": "{}",
+      // "return-type": "json",
       // "interval": 60,
-      "exec":"go run $HOME/dotfiles/wms/waybar/scripts/go_timer/main.go"
+      // "exec":"go run $HOME/dotfiles/wms/waybar/scripts/go_timer/main.go"
   },
   "custom/test": {
     "format": "󰀻",
@@ -39,36 +39,36 @@
   },
   // "width":500,
 
-"custom/audio_idle_inhibitor": {
-    "format": "{icon}",
-    "exec": "sway-audio-idle-inhibit --dry-print-both-waybar",
-    "exec-if": "which sway-audio-idle-inhibit",
-    "return-type": "json",
-    "format-icons": {
-        "output": " ",
-        "input": " ",
-        "output-input": "  ",
-        "none": "",
-    },
-},
+// "custom/audio_idle_inhibitor": {
+//     "format": "{icon}",
+//     "exec": "sway-audio-idle-inhibit --dry-print-both-waybar",
+//     "exec-if": "which sway-audio-idle-inhibit",
+//     "return-type": "json",
+//     "format-icons": {
+//         "output": " ",
+//         "input": " ",
+//         "output-input": "  ",
+//         "none": "",
+//     },
+// },
   "hyprland/submap": {
-    "format": "✌️ {}",
+    "format": "{}",
     "max-length": 8,
     "tooltip": false,
   },
   "clock": {
     "format-alt": " {:%I:%M %p }",
-    "format": "  {:%A, %B %d, %Y (%I:%M %p)}",
+    "format": "  <span color='#ff5d62'>{0:%W %I:%M %p}</span> {0:%a  %F}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "year",
       "mode-mon-col": 3,
-      // "weeks-pos"     : "right",
+      "weeks-pos"     : "right",
       "on-scroll": 1,
       "format": {
         "months": "<span color='#209db6'><b>{}</b></span>",
         "days": "<span color='#576175'><b>{}</b></span>",
-        "weeks": "<span color='#16181d'><b>W{}</b></span>",
+        "weeks": "<span color='#555555'><b>W{}</b></span>",
         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
         "today": "<span color='#ff6699'><b>{}</b></span>",
       },
