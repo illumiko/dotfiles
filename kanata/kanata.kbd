@@ -67,9 +67,10 @@ process-unmapped-keys yes
  ;; l (t! homerowmod $tot 400 l ralt)
  ;; alt @alt
  lsft (t! homerowmod $tot 250 sft (layer-while-held mouse))
+ n (t! homerowmod $tot 250 n (layer-while-held numbers))
  ; (t! homerowmod $tot 250 ; lmet)
  ;; define each letter as typing-layer trigger
- q (multi q @.tp) w (multi w @.tp) e (multi e @.tp) r (multi r @.tp) t (multi t @.tp) y (multi y @.tp) u (multi u @.tp) i (multi i @.tp) o (multi o @.tp) p (multi p @.tp) g (multi g @.tp) h (multi h @.tp) z (multi z @.tp) x (multi x @.tp) c (multi c @.tp) v (multi v @.tp) b (multi b @.tp) n (multi n @.tp) m (multi m @.tp) 
+ q (multi q @.tp) w (multi w @.tp) e (multi e @.tp) r (multi r @.tp) t (multi t @.tp) y (multi y @.tp) u (multi u @.tp) i (multi i @.tp) o (multi o @.tp) p (multi p @.tp) g (multi g @.tp) h (multi h @.tp) z (multi z @.tp) x (multi x @.tp) c (multi c @.tp) v (multi v @.tp) b (multi b @.tp) m (multi m @.tp) 
  caps(t! homerowmod 10 300 bspc (layer-while-held arrow))
 )
 (deflayermap (typing) 
@@ -83,24 +84,36 @@ process-unmapped-keys yes
     l right
 )
 
+(deflayermap 
+  (numbers)
+  q 4
+  w 5
+  e 6
+  a 7
+  s 8
+  d 9
+  f 0
+
+)
+
 (deflayermap (mouse)
 	;; i (cmd woomer)
 	;; o (cmd $fsh pick_and_copy_color)
 	;; u (cmd $fsh screenshot_select)
 	q mlft
-	f mmid
+	w mmid
 	e mrgt
 	[ mbck
 	] mfwd
-	c (mwheel-up    100 120)
-	x (mwheel-down  100 120)
-	z (mwheel-left  100 120)
-	v (mwheel-right 100 120)
+	c (mwheel-up    200 420)
+	x (mwheel-down  200 420)
+	z (mwheel-left  200 420)
+	v (mwheel-right 200 420)
 	; (layer-while-held mouse-slow)
-	a (movemouse-accel-left  5 300 1 7)
-	s (movemouse-accel-down  5 300 1 7)
-	w (movemouse-accel-up    5 300 1 7)
-	d (movemouse-accel-right 5 300 1 7)
+	a (movemouse-accel-left  5 300 1 12)
+	s (movemouse-accel-down  5 300 1 12)
+	d (movemouse-accel-up    5 300 1 12)
+	f (movemouse-accel-right 5 300 1 12)
 )
 
 (deflayermap (mouse-slow)
