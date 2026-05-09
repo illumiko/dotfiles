@@ -66,7 +66,7 @@ process-unmapped-keys yes
  ;; s (t! homerowmodfiltered $tot 400 s lalt (a)) ;; example fix of the 'as' role 
  ;; l (t! homerowmod $tot 400 l ralt)
  ;; alt @alt
- lsft (t! homerowmod $tot 250 sft (layer-while-held mouse))
+ lsft (t! homerowmod 1 1 sft (layer-switch mouse))
  n (t! homerowmod $tot 250 n (layer-while-held numbers))
  ; (t! homerowmod $tot 250 ; lmet)
  ;; define each letter as typing-layer trigger
@@ -82,6 +82,10 @@ process-unmapped-keys yes
     j down
     k up
     l right
+    a h
+    s j
+    d k
+    f l
 )
 
 (deflayermap 
@@ -100,6 +104,7 @@ process-unmapped-keys yes
 	;; i (cmd woomer)
 	;; o (cmd $fsh pick_and_copy_color)
 	;; u (cmd $fsh screenshot_select)
+    lsft (layer-switch base)
 	q mlft
 	w mmid
 	e mrgt
