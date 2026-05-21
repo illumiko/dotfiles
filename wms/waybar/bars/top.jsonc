@@ -19,6 +19,7 @@
   "modules-center": ["mpd"],
   "modules-left": ["hyprland/submap","clock"],
   "modules-right": ["custom/emacs","custom/test"],
+
   "custom/pomodoro": {
       "format": "{}",
       // "return-type": "json",
