@@ -33,8 +33,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq
- doom-theme 'doom-tokyo-night
- doom-font (font-spec :family "VictorMono NF" :size 20)
+ doom-theme 'doom-oksolar-light
+ doom-font (font-spec :family "Maple Mono NF" :size 20)
 )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -47,10 +47,14 @@
 (setq evil-escape-key-sequence "jk"
       evil-escape-delay 0.1
 )
+
 (after! org
 (setq org-directory "~/Documents/org/"
-      org-agenda-files '("~/Documents/org/inbox.org" "~/Documents/org/gtd.org" "~/Documents/org/projects/")
+      org-journal-dir "~/Documents/org/journal/"
+      org-agenda-files '("~/Documents/org/journal/" "~/Documents/org/semester/" "~/Documents/org/journal/weeks/")
       org-default-notes-file "~/org/inbox.org"
+      org-clock-into-drawer t
+      org-log-into-drawer t
       org-journal-date-prefix "#+TITLE: "
       org-journal-time-prefix "* "
       org-journal-date-format "%a, %Y-%m-%d"
@@ -73,6 +77,52 @@
   (add-hook 'post-command-hook #'my-yas-try-expanding-auto-snippets)
   (add-hook 'evil-insert-state-exit-hook #'yas-exit-all-snippets)
 )
+
+;; (defun my/open-weekly-file ()
+;;   "Open or create the current week's org file."
+;;   (interactive)
+;;   (let* ((year (format-time-string "%Y"))
+;;          (week (format-time-string "%V"))
+;;          (filename (format "%s-W%s.org" year week))
+;;          (dir (expand-file-name "journal/weeks/" org-directory))
+;;          (filepath (expand-file-name filename dir)))
+;;     (unless (file-directory-p dir)
+;;       (make-directory dir t))
+;;     (find-file filepath)
+;;     (when (= (buffer-size) 0)
+;;       (insert (format "#+TITLE: Week %s — %s\n\n" week year))
+;;       (insert "* Goals & Intention\n\n")
+;;       (insert "* Tasks\n\n")
+;;       (insert "* Time Report\n")
+;;       (insert "#+BEGIN: clocktable :scope file :maxlevel 3 :compact t\n")
+;;       (insert "#+END:\n\n")
+;;       (insert "* Week Review\n")
+;;       (save-buffer))))
+(defun my/open-weekly-file ()
+  "Open or create the current week's org file."
+  (interactive)
+  (let* ((day-of-year (string-to-number (format-time-string "%j")))
+         (week (floor (/ (- day-of-year 1) 7)))
+         (week-str (format "%02d" week))
+         (year (format-time-string "%Y"))
+         (filename (format "%s-W%s.org" year week-str))
+         (dir (expand-file-name "journal/weeks/" org-directory))
+         (filepath (expand-file-name filename dir)))
+    (unless (file-directory-p dir)
+      (make-directory dir t))
+    (find-file filepath)
+    (when (= (buffer-size) 0)
+      (insert (format "#+TITLE: Week %s — %s\n\n" week-str year))
+      (insert "* Goals & Intention\n\n")
+      (insert "* Tasks\n\n")
+      (insert "* Time Report\n")
+      (insert "#+BEGIN: clocktable :scope file :maxlevel 3 :compact t\n")
+      (insert "#+END:\n\n")
+      (insert "* Week Review\n")
+      (save-buffer))))
+(map! :leader
+      :prefix ("n w" . "weekly")
+      :desc "Open weekly file" "w" #'my/open-weekly-file)
 
 (after! dired
   (map! :map dired-mode-map
