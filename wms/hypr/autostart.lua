@@ -1,4 +1,6 @@
 hl.on("hyprland.start", function()
+    hl.exec_cmd(("wl-paste --type text --watch cliphist store"))
+    hl.exec_cmd(("wl-paste --type image --watch cliphist store"))
 	hl.exec_cmd("kitty pulsemixer", { workspace = "special:pulsemixer" })
 	hl.exec_cmd("kitty ncmpcpp", { workspace = "special:music" })
 	hl.exec_cmd("ymuse", { workspace = "special:ymuse" })

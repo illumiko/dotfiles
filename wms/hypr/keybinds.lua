@@ -7,6 +7,7 @@ local laptop = "eDP-1"
 local closeWindowBind = hl.bind(mainMod .. " + x", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. "+ SHIFT +l", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .."+ 0", hl.dsp.exec_cmd(" rofi -modi clipboard:$HOME/dotfiles/wms/rofi/scripts/clipmanager_withimg -show clipboard -show-icons -theme mytheme -no-lazy-grab"))
 hl.bind(
 	mainMod .. "+ M",
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
@@ -53,18 +54,19 @@ end
 hl.bind(mainMod .. "+ F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. "+ V", hl.dsp.window.float())
 
-hl.bind(mainMod .. " + z", function()
-	local mons = hl.get_monitors()
-
-	local names = {}
-	for i, v in ipairs(mons) do
-		if i <= 2 then
-			names["monitor" .. i] = v.name
-		end
-	end
-
-	hl.dispatch(hl.dsp.workspace.swap_monitors(names))
-end)
+hl.bind(mainMod .. " + z", hl.dsp.focus({ workspace = "previous", on_current_monitor = true }))
+-- hl.bind(mainMod .. " + z", function()
+-- 	local mons = hl.get_monitors()
+--
+-- 	local names = {}
+-- 	for i, v in ipairs(mons) do
+-- 		if i <= 2 then
+-- 			names["monitor" .. i] = v.name
+-- 		end
+-- 	end
+--
+-- 	hl.dispatch(hl.dsp.workspace.swap_monitors(names))
+-- end)
 -- hl.bind(mainMod .. "+ z", hl.dsp.workspace.swap_monitors({ monitor1 = laptop, monitor2= desktop }))
 -- hl.bind(mainMod .. "+")
 -- hl.bind(mainMod .. "+")
@@ -128,6 +130,25 @@ hl.define_submap("system", function()
 	hl.bind("s", hl.dsp.exec_cmd("ddcutil setvcp 10 - 10"), { repeating = true })
 	hl.bind("q", hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
 	hl.bind("e", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
+	-- Set repeating binds for resizing the active window.
+	-- hl.bind("d", hl.dsp.exec_cmd("kitty"), { repeating = true })
+	-- hl.bind("left", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+	-- hl.bind("up", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+	-- hl.bind("down", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+
+	-- Use `reset` to go back to the global submap
+	hl.bind("escape", hl.dsp.submap("reset"))
+end)
+
+-- Start a submap called "resize".
+hl.bind("ALT + t", hl.dsp.submap("timer"))
+hl.define_submap("timer", function()
+	hl.bind("1", hl.dsp.exec_cmd([[echo "pause" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
+	hl.bind("1", hl.dsp.submap("reset"))
+	hl.bind("2", hl.dsp.exec_cmd([[echo "55" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
+	hl.bind("2", hl.dsp.submap("reset"))
+	hl.bind("3", hl.dsp.exec_cmd([[echo "25" >> ~/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
+	hl.bind("3", hl.dsp.submap("reset"))
 	-- Set repeating binds for resizing the active window.
 	-- hl.bind("d", hl.dsp.exec_cmd("kitty"), { repeating = true })
 	-- hl.bind("left", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })

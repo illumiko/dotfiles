@@ -1,25 +1,4 @@
 
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
-
-/*****----- Configuration -----*****/
-configuration {
-	modi:                       "run,filebrowser,drun,recursivebrowser,window";
-    show-icons:                 true;
-    display-drun:               "";
-    display-run:                "";
-    display-filebrowser:        "";
-    display-window:             "";
-	drun-display-format:        "{name}";
-	window-format:              "{w} · {c} · {t}";
-    font: "Comic Code 12";
-}
 
 
 /*****----- Global Properties -----*****/
@@ -161,7 +140,7 @@ case-indicator {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     1;
+    columns:                     4;
     lines:                       8;
     cycle:                       true;
     dynamic:                     true;
@@ -240,7 +219,7 @@ element alternate.active {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        24px;
+    size:                        100px;
     cursor:                      inherit;
 }
 element-text {
@@ -333,4 +312,3 @@ element.alternate.normal {
     background-color: @background;
     text-color: @foreground;
 }
-// @theme "mytheme"
