@@ -7,9 +7,20 @@ process-unmapped-keys yes
 (defvirtualkeys
   to-base (layer-switch base)
 )
-
 (defalias
-  alt (multi alt (layer-while-held mouse))
+   alt-esc (fork esc (unicode ~) (alt))
+  ;; alt-sft-esc (fork @alt-esc (unicode `) (lsft))
+
+  )
+;;(defalias
+;;  alt-esc (switch
+;;    ((lalt lsft)) (unicode `) break
+;;    ((lalt))      (unicode ~) break
+;;    ()            esc         break))
+(defalias
+  alt 
+  (multi alt (layer-while-held mouse))
+  ;; (multi alt (chord tilde-chord lalt))
   1 (multi alt 1)
   2 (multi alt 2)
   3 (multi alt 3)
@@ -49,12 +60,13 @@ process-unmapped-keys yes
         ;;(lsft rsft) XX break ;; optional skip typing-layer activation for upper case keys might solves some FJ problems
         ()  (multi
               (layer-switch typing)
-              (on-idle 10 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
+              (on-idle 5 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
             ) break
       )
   .spc-typing   (multi (layer-switch base) spc) ;; expilcitly leave typing-layer when hitting `space` - this allows experimenting with higher idle timeouts
 )
-(defsrc )
+(defsrc)
+;;(defchords tilde-chord 50 (lalt esc) (unicode ~))
 (deflayermap (base)
  ;; define home row mods (they act as typing-layer triggers, too )
   a (t! homerowmod $tot 250 a lmet)
@@ -65,12 +77,14 @@ process-unmapped-keys yes
  ;; l (t! homerowmod $tot 300 l lctl)
  ;; s (t! homerowmodfiltered $tot 400 s lalt (a)) ;; example fix of the 'as' role 
  ;; l (t! homerowmod $tot 400 l ralt)
- ;; alt @alt
- lsft (t! homerowmod 1 1 sft (layer-switch mouse))
- n (t! homerowmod $tot 250 n (layer-while-held numbers))
+ esc  @alt-esc
+ ;;alt @alt
+ lsft (t! homerowmod 1 1 sft (layer-while-held mouse))
+ i(t! homerowmod $tot 250  i(layer-while-held numbers))
  ; (t! homerowmod $tot 250 ; lmet)
  ;; define each letter as typing-layer trigger
- q (multi q @.tp) w (multi w @.tp) e (multi e @.tp) r (multi r @.tp) t (multi t @.tp) y (multi y @.tp) u (multi u @.tp) i (multi i @.tp) o (multi o @.tp) p (multi p @.tp) g (multi g @.tp) h (multi h @.tp) z (multi z @.tp) x (multi x @.tp) c (multi c @.tp) v (multi v @.tp) b (multi b @.tp) m (multi m @.tp) 
+ q (multi q @.tp) w (multi w @.tp) e (multi e @.tp) r (multi r @.tp) t (multi t @.tp) y (multi y @.tp) u (multi u @.tp) o (multi o @.tp) p (multi p @.tp) g (multi g @.tp) h (multi h @.tp) c (multi c @.tp) v (multi v @.tp) b (multi b @.tp) m (multi m @.tp) 
+ ;; q (multi q @.tp) w (multi w @.tp) e (multi e @.tp) r (multi r @.tp) t (multi t @.tp) y (multi y @.tp) u (multi u @.tp) i (multi i @.tp) o (multi o @.tp) p (multi p @.tp) g (multi g @.tp) h (multi h @.tp) z (multi z @.tp) x (multi x @.tp) c (multi c @.tp) v (multi v @.tp) b (multi b @.tp) m (multi m @.tp) 
  caps(t! homerowmod 10 300 bspc (layer-while-held arrow))
 )
 (deflayermap (typing) 
@@ -86,6 +100,7 @@ process-unmapped-keys yes
     s j
     d k
     f l
+    spc enter
 )
 
 (deflayermap 
@@ -97,6 +112,8 @@ process-unmapped-keys yes
   s 8
   d 9
   f 0
+  z -
+  x =
 
 )
 

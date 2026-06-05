@@ -1,0 +1,18 @@
+(defsrc w b c)
+(deflayer default
+  @cha @chb @chc
+)
+
+(defalias
+  cha (chord example a)
+  chb (chord example b)
+  chc (chord example c)
+)
+
+(defchords example 500
+  (a      ) a
+  (   b   ) b
+  (a     c) C-v
+  (a  b  c) p
+ aaaa 
+)
