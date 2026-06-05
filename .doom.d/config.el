@@ -34,7 +34,8 @@
 ;; `load-theme' function. This is the default:
 (setq
  doom-theme 'doom-oksolar-light
- doom-font (font-spec :family "Maple Mono NF" :size 20)
+ ;; doom-font (font-spec :family "Maple Mono NF" :size 20)
+ doom-font (font-spec :family "ComicShannsMono Nerd Font" :size 20)
 )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -67,7 +68,6 @@
                               (file "~/Documents/org/inbox.org")
                               "* %u %?\n"))
 ))
-
 ;; Function that tries to auto-expand YaSnippets
 (after! yasnippet
   (defun my-yas-try-expanding-auto-snippets ()
@@ -101,9 +101,8 @@
 (defun my/open-weekly-file ()
   "Open or create the current week's org file."
   (interactive)
-  (let* ((day-of-year (string-to-number (format-time-string "%j")))
-         (week (floor (/ (- day-of-year 1) 7)))
-         (week-str (format "%02d" week))
+  (let* ((tstart (format-time-string "%Y-%m-%d"))
+         (week-str (format-time-string "%U"))
          (year (format-time-string "%Y"))
          (filename (format "%s-W%s.org" year week-str))
          (dir (expand-file-name "journal/weeks/" org-directory))
@@ -115,8 +114,12 @@
       (insert (format "#+TITLE: Week %s — %s\n\n" week-str year))
       (insert "* Goals & Intention\n\n")
       (insert "* Tasks\n\n")
-      (insert "* Time Report\n")
+      (insert "* Weekly Time Report\n")
       (insert "#+BEGIN: clocktable :scope file :maxlevel 3 :compact t\n")
+      (insert "#+END:\n\n")
+      (insert "* Daily Time Report\n")
+      (insert
+       (format "#+BEGIN: clocktable :scope file :maxlevel 3 :compact t :tstart\"<%s>\":tend \"<now>\"  \n" tstart) )
       (insert "#+END:\n\n")
       (insert "* Week Review\n")
       (save-buffer))))
