@@ -119,7 +119,7 @@
       (insert "#+END:\n\n")
       (insert "* Daily Time Report\n")
       (insert
-       (format "#+BEGIN: clocktable :scope file :maxlevel 3 :compact t :tstart\"<%s>\":tend \"<now>\"  \n" tstart) )
+       (format "#+BEGIN: clocktable :scope file :maxlevel 3 :compact t :step day :tstart\"<%s>\":tend \"<now>\"  \n" tstart) )
       (insert "#+END:\n\n")
       (insert "* Week Review\n")
       (save-buffer))))
