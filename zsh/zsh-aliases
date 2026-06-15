@@ -3,6 +3,12 @@
 # alias f='zi'
 # alias g='lazygit'
 # alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+hypr-eink() {
+    hyprctl eval "hl.config({decoration={screen_shader='$HOME/dotfiles/wms/hypr/shaders/e_ink.glsl'}})"
+}
+hypr-off(){
+    hyprctl eval "hl.config({ decoration = { screen_shader = '' } })"
+}
 alias paru='paru --bottomup'
 alias rg="rg --no-ignore --hidden"
 alias discord="brave --app-id=emkfdkfajgpbkjphhfoegmimeagefpjm"
