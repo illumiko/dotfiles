@@ -101,6 +101,7 @@ process-unmapped-keys yes
     d k
     f l
     spc enter
+    ; '
 )
 
 (deflayermap 
@@ -127,15 +128,15 @@ process-unmapped-keys yes
 	e mrgt
 	[ mbck
 	] mfwd
-	c (mwheel-up    200 420)
-	x (mwheel-down  200 420)
-	b (mwheel-left  200 420)
-	v (mwheel-right 200 420)
+	v (mwheel-up    200 420)
+	c (mwheel-down  200 420)
+	x (mwheel-left  200 420)
+	b (mwheel-right 200 420)
 	; (layer-while-held mouse-slow)
-	a (movemouse-accel-left  5 300 1 12)
-	s (movemouse-accel-down  5 300 1 12)
-	d (movemouse-accel-up    5 300 1 12)
-	f (movemouse-accel-right 5 300 1 12)
+	s (movemouse-accel-left  5 300 1 12)
+	d (movemouse-accel-down  5 300 1 12)
+	f (movemouse-accel-up    5 300 1 12)
+	g (movemouse-accel-right 5 300 1 12)
 )
 
 (deflayermap (mouse-slow)
