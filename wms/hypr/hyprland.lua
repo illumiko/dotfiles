@@ -7,12 +7,12 @@ local laptop = "eDP-1"
 
 local positions = { left = "-1920x0", right = "1920x0", bottom = "0x1080" }
 
--- hl.monitor({
--- 	output = laptop,
--- 	mode = "1920x1080",
--- 	position = positions.bottom,
--- 	scale = 1,
--- })
+hl.monitor({
+	output = laptop,
+	mode = "1920x1080",
+	position = positions.bottom,
+	scale = 1,
+})
 hl.monitor({
 	output = desktop,
 	mode = "1920x1080",
@@ -82,7 +82,7 @@ hl.config({
 
 		repeat_delay = 450,
 		repeat_rate = 30,
-		follow_mouse = 1,
+		follow_mouse = 0,
 		mouse_refocus = false,
 		accel_profile = "adaptive",
 

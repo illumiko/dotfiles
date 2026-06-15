@@ -1,6 +1,5 @@
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local altmod = "ALT"
-
 local terminal = "kitty"
 local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
@@ -45,7 +44,8 @@ hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
-local maps = { "1", "2", "3", "q", "w", "e", "a", "s" }
+-- local maps = { "1", "2", "3", "q", "w", "e", "a", "s" }
+local maps = { "q", "w", "e", "r", "t","a","s",}
 for i, key in ipairs(maps) do
 	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i, on_current_monitor = true }))
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
@@ -76,10 +76,10 @@ hl.bind(mainMod .. " + z", hl.dsp.focus({ workspace = "previous", on_current_mon
 
 -- Example special workspace (scratchpad)
 -- hl.bind(altmod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-hl.bind(altmod .. " + 1", hl.dsp.workspace.toggle_special("music"))
-hl.bind(altmod .. " + 2", hl.dsp.workspace.toggle_special("pulsemixer"))
-hl.bind(altmod .. " + 3", hl.dsp.workspace.toggle_special("terminal"))
-hl.bind(altmod .. " + q", hl.dsp.workspace.toggle_special("emacs"))
+hl.bind(altmod .. " + q", hl.dsp.workspace.toggle_special("music"))
+hl.bind(altmod .. " + w", hl.dsp.workspace.toggle_special("pulsemixer"))
+hl.bind(altmod .. " + e", hl.dsp.workspace.toggle_special("terminal"))
+hl.bind(altmod .. " + a", hl.dsp.workspace.toggle_special("emacs"))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
