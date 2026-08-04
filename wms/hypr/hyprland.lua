@@ -13,12 +13,12 @@ hl.monitor({
 	position = positions.bottom,
 	scale = 1,
 })
-hl.monitor({
-	output = desktop,
-	mode = "1920x1080",
-	position = "0x0",
-	scale = 1,
-})
+-- hl.monitor({
+-- 	output = desktop,
+-- 	mode = "1920x1080",
+-- 	position = "0x0",
+-- 	scale = 1,
+-- })
 
 hl.config({
 	general = {
@@ -67,6 +67,7 @@ hl.config({
 	},
 
 	animations = {
+        workspace_wraparound = true,
 		enabled = true,
 	},
 })
@@ -84,9 +85,9 @@ hl.config({
 		repeat_rate = 30,
 		follow_mouse = 0,
 		mouse_refocus = false,
-		accel_profile = "adaptive",
+		accel_profile = "flat",
 
-		sensitivity = 0.4, -- -1.0 - 1.0, 0 means no modification.
+		sensitivity = 1, -- -1.0 - 1.0, 0 means no modification.
 
 		touchpad = {
 			natural_scroll = false,
@@ -116,4 +117,19 @@ hl.gesture({
 	-- 	hl.focus({ direction = "left" })
 	-- 	hl.notification.create({ text = "I just swiped on my trackpad!", duration = 5000, icon = "ok" })
 	-- end,
+})
+hl.window_rule({
+    name="termite",
+    match = {
+        class="Termite",
+    },
+    float = true,
+    no_dim=true,
+})
+hl.window_rule({
+    name="codeblocks",
+    match = {
+        class="codeblocks",
+    },
+    no_dim = true,
 })

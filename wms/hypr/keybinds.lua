@@ -6,7 +6,12 @@ local laptop = "eDP-1"
 local closeWindowBind = hl.bind(mainMod .. " + x", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. "+ SHIFT +l", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .."+ 0", hl.dsp.exec_cmd(" rofi -modi clipboard:$HOME/dotfiles/wms/rofi/scripts/clipmanager_withimg -show clipboard -show-icons -theme mytheme -no-lazy-grab"))
+hl.bind(
+	mainMod .. "+ 0",
+	hl.dsp.exec_cmd(
+		" rofi -modi clipboard:$HOME/dotfiles/wms/rofi/scripts/clipmanager_withimg -show clipboard -show-icons -theme mytheme -no-lazy-grab"
+	)
+)
 hl.bind(
 	mainMod .. "+ M",
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
@@ -45,7 +50,7 @@ hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 -- local maps = { "1", "2", "3", "q", "w", "e", "a", "s" }
-local maps = { "q", "w", "e", "r", "t","a","s",}
+local maps = { "q", "w", "e", "r", "t", "a", "s" }
 for i, key in ipairs(maps) do
 	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i, on_current_monitor = true }))
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
@@ -53,6 +58,7 @@ end
 
 hl.bind(mainMod .. "+ F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. "+ V", hl.dsp.window.float())
+hl.bind(mainMod .. "+ p", hl.dsp.window.pin())
 
 hl.bind(mainMod .. " + z", hl.dsp.focus({ workspace = "previous", on_current_monitor = true }))
 -- hl.bind(mainMod .. " + z", function()
@@ -157,4 +163,19 @@ hl.define_submap("timer", function()
 
 	-- Use `reset` to go back to the global submap
 	hl.bind("escape", hl.dsp.submap("reset"))
+end)
+
+local layouts = { "dwindle", "master", "scrolling", "monocle" }
+hl.bind(mainMod .. " + b", function()
+	local current = hl.get_config("general.layout")
+	for i, name in ipairs(layouts) do
+		if current == name then
+			local next_layout = layouts[(i % #layouts) + 1]
+			hl.config({ general = { layout = next_layout } })
+			hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
+			return
+		end
+	end
+	hl.config({ general = { layout = layouts[1] } })
+	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. layouts[1] .. "'"))
 end)
