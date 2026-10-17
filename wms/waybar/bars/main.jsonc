@@ -2,8 +2,8 @@
   "name": "main",
   "layer": "top",
   "reload_style_on_change": true,
-  "position": "right",
   "mod": "dock",
+  "position": "right",
   "exclusive": true,
   "spacing": 0,
   "passthrough": false,
@@ -20,7 +20,7 @@
 
   "modules-left": ["custom/notification", "hyprland/workspaces"],
   "custom/notification": {
-    // "rotate": 270,
+    "rotate": 270,
     "tooltip": false,
     "format": "{icon}",
     "format-icons": {

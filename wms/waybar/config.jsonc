@@ -1,12 +1,23 @@
 [
     {
         "reload_style_on_change": true,
+        "output":"eDP-1",
         "include":[
             "~/dotfiles/wms/waybar/bars/main.jsonc"
         ]
     },
+
+  //   {
+  //       "reload_style_on_change": true,
+  //       "output":"HDMI-A-1",
+  // "position": "bottom",
+  //       "include":[
+  //           "~/dotfiles/wms/waybar/bars/main_bottom.jsonc"
+  //       ]
+  //   },
     {
-        "reload_style_on_change": true,
+        "reload_style_on_change": false,
+        "output":"eDP-1",
         "include":[
             "~/dotfiles/wms/waybar/bars/top.jsonc"
         ]

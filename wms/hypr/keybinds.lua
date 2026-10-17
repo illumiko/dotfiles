@@ -4,7 +4,10 @@ local terminal = "kitty"
 local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
 local closeWindowBind = hl.bind(mainMod .. " + x", hl.dsp.window.close())
+
 -- closeWindowBind:set_enabled(false)
+
+hl.bind(mainMod .. "+ SHIFT +p", hl.dsp.exec_cmd("hyprpicker | awk '{print $1}' | wl-copy"))
 hl.bind(mainMod .. "+ SHIFT +l", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(
 	mainMod .. "+ 0",
@@ -38,15 +41,6 @@ hl.bind(mainMod .. "+ TAB", hl.dsp.exec_cmd("rofi -show recursivebrowser"))
 -- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 
 -- Move focus with mainMod + arrow keys
-hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
-
-hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 -- local maps = { "1", "2", "3", "q", "w", "e", "a", "s" }
@@ -138,9 +132,10 @@ hl.define_submap("system", function()
 	hl.bind("e", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
 	-- Set repeating binds for resizing the active window.
 	-- hl.bind("d", hl.dsp.exec_cmd("kitty"), { repeating = true })
-	-- hl.bind("left", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
-	-- hl.bind("up", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
-	-- hl.bind("down", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+	hl.bind("right", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
+	hl.bind("left", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+	hl.bind("up", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+	hl.bind("down", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
 
 	-- Use `reset` to go back to the global submap
 	hl.bind("escape", hl.dsp.submap("reset"))
@@ -149,12 +144,18 @@ end)
 -- Start a submap called "resize".
 hl.bind("ALT + t", hl.dsp.submap("timer"))
 hl.define_submap("timer", function()
+	-- hl.bind("1", hl.dsp.exec_cmd([[echo "pause" > /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd && sleep 1 && echo "pause" > /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
 	hl.bind("1", hl.dsp.exec_cmd([[echo "pause" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
 	hl.bind("1", hl.dsp.submap("reset"))
+	-- hl.bind("2", hl.dsp.exec_cmd([[echo "55" > /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd && sleep 1 && echo "55" > /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
 	hl.bind("2", hl.dsp.exec_cmd([[echo "55" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
 	hl.bind("2", hl.dsp.submap("reset"))
-	hl.bind("3", hl.dsp.exec_cmd([[echo "25" >> ~/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
+	-- hl.bind("3", hl.dsp.exec_cmd([[echo "25" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd && sleep 1 && echo "25" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
+	hl.bind("3", hl.dsp.exec_cmd([[echo "20" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
 	hl.bind("3", hl.dsp.submap("reset"))
+
+	hl.bind("4", hl.dsp.exec_cmd([[echo "10" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
+	hl.bind("4", hl.dsp.submap("reset"))
 	-- Set repeating binds for resizing the active window.
 	-- hl.bind("d", hl.dsp.exec_cmd("kitty"), { repeating = true })
 	-- hl.bind("left", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
@@ -165,17 +166,74 @@ hl.define_submap("timer", function()
 	hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
-local layouts = { "dwindle", "master", "scrolling", "monocle" }
+function unbind_navkeys()
+	hl.unbind(mainMod .. " + h")
+	hl.unbind(mainMod .. " + l")
+	hl.unbind(mainMod .. " + j")
+	hl.unbind(mainMod .. " + k")
+	hl.unbind(mainMod .. "+SHIFT + j")
+end
+
 hl.bind(mainMod .. " + b", function()
-	local current = hl.get_config("general.layout")
+	unbind_navkeys()
+	local ws = hl.get_active_workspace()
+	local layouts = { "dwindle", "master", "monocle", "scrolling" }
+	local current = ws.tiled_layout
+	ws = hl.get_active_workspace()
+	if not ws then
+		return
+	end
+	current = ws.tiled_layout
+	local next_layout = layouts[1]
 	for i, name in ipairs(layouts) do
 		if current == name then
-			local next_layout = layouts[(i % #layouts) + 1]
+			next_layout = layouts[(i % #layouts) + 1]
+
 			hl.config({ general = { layout = next_layout } })
-			hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
-			return
+			break
 		end
 	end
-	hl.config({ general = { layout = layouts[1] } })
-	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. layouts[1] .. "'"))
+	current = next_layout
+	hl.config({ general = { layout = layouts[0] } })
+	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
+	-- hl.workspace_rule({ workspace = ws.id, layout = next_layout })
+
+	if current == "monocle" then
+		hl.bind(mainMod .. " + h", hl.dsp.layout("cyclenext"))
+		hl.bind(mainMod .. " + l", hl.dsp.layout("cycleprev"))
+		hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+	elseif current == "dwindle" then
+		hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+		hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+		hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+	elseif current == "scrolling" then
+		hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+		hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+		hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+		hl.bind(mainMod .. "+SHIFT + j", hl.dsp.layout("consume_or_expel prev"))
+	elseif current == "master" then
+		hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+		hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+		hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+		hl.bind(mainMod .. "+SHIFT + j", hl.dsp.layout("swapwithmaster master"))
+	end
 end)
+
+-- local layouts = { "dwindle", "master", "scrolling", "monocle" }
+-- hl.bind(mainMod .. " + b", function()
+-- 	local current = hl.get_config("general.layout")
+-- 	for i, name in ipairs(layouts) do
+-- 		if current == name then
+-- 			local next_layout = layouts[(i % #layouts) + 1]
+-- 			hl.config({ general = { layout = next_layout } })
+-- 			hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
+-- 			return
+-- 		end
+-- 	end
+-- 	hl.config({ general = { layout = layouts[1] } })
+-- 	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. layouts[1] .. "'"))
+-- end)

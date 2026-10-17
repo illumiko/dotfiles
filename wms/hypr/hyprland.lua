@@ -5,30 +5,33 @@ require("animations")
 local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
 
-local positions = { left = "-1920x0", right = "1920x0", bottom = "0x1080" }
+local positions = { left = "-1920x0", right = "1920x0", bottom = "0x1080" , top = "0x-1080"}
+local modes={vertical = "1920x0",}
 
 hl.monitor({
 	output = laptop,
 	mode = "1920x1080",
-	position = positions.bottom,
+	position = "0x0",
 	scale = 1,
 })
--- hl.monitor({
--- 	output = desktop,
--- 	mode = "1920x1080",
--- 	position = "0x0",
--- 	scale = 1,
--- })
+hl.monitor({
+    -- transform = 3,
+	output = desktop,
+	-- mode = modes.vertical,
+	position = "auto-up",
+	scale = 1,
+})
 
 hl.config({
 	general = {
 		gaps_in = 5,
 		gaps_out = 20,
 
-		border_size = 2,
+		border_size = 5,
 
 		col = {
-			active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+			-- active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+			active_border = {colors={"rgba(255,0,0,1)"}},
 			inactive_border = "rgba(595959aa)",
 		},
 
@@ -42,7 +45,8 @@ hl.config({
 	},
 
 	decoration = {
-		dim_inactive = true,
+		dim_inactive = false,
+        dim_special = 0.8,
 		-- inactive_opacity = 0.8,
 		rounding = 10,
 		rounding_power = 2,
@@ -52,7 +56,7 @@ hl.config({
 		inactive_opacity = 1.0,
 
 		shadow = {
-			enabled = true,
+			enabled = false,
 			range = 4,
 			render_power = 3,
 			color = 0xee1a1a1a,
@@ -61,7 +65,7 @@ hl.config({
 		blur = {
 			enabled = true,
 			size = 3,
-			passes = 1,
+			passes = 5,
 			vibrancy = 0.1696,
 		},
 	},
@@ -76,26 +80,28 @@ hl.config({
 	scrolling = { column_width = 0.9 },
 	input = {
 		kb_layout = "us",
-		kb_variant = "",
-		kb_model = "",
-		kb_options = "",
-		kb_rules = "",
+		-- kb_variant = "",
+		-- kb_model = "",
+		-- kb_options = "",
+		-- kb_rules = "",
 
 		repeat_delay = 450,
 		repeat_rate = 30,
-		follow_mouse = 0,
+		follow_mouse = 2,
 		mouse_refocus = false,
 		accel_profile = "flat",
 
-		sensitivity = 1, -- -1.0 - 1.0, 0 means no modification.
+		sensitivity = 3,
 
 		touchpad = {
+            scroll_factor = 0.3,
 			natural_scroll = false,
 			-- gnome like touchpad goodness
 			clickfinger_behavior = true,
 		},
 	},
 })
+hl.workspace_rule({workspace="7",monitor=desktop,decorate=false});
 local scratchpads = { "terminal", "emacs", "ymuse", "pulsemixer", "music" }
 for _, value in ipairs(scratchpads) do
 	hl.workspace_rule({ workspace = "special:" .. value, gaps_out = 80, gaps_in = 40 })
@@ -119,12 +125,31 @@ hl.gesture({
 	-- end,
 })
 hl.window_rule({
+    name="Netbeans with TMC",
+    match = {
+        class="Netbeans with TMC",
+        float = true,
+    },
+    center = true,
+})
+hl.window_rule({
     name="termite",
     match = {
         class="Termite",
     },
     float = true,
     no_dim=true,
+})
+hl.window_rule({
+    name="^Arduino.*",
+    match = {
+        class="GtkMenuBar",
+    },
+    no_dim = true,
+    decorate = false,
+    dim_around = false,
+    no_shadow = true,
+    no_blur = true,
 })
 hl.window_rule({
     name="codeblocks",

@@ -18,13 +18,16 @@
   "fixed-center": true,
   "modules-center": ["mpd"],
   "modules-left": ["hyprland/submap","clock"],
-  "modules-right": ["custom/emacs","custom/test"],
+  "modules-right": ["custom/pomodoro","custom/emacs","custom/test"],
 
   "custom/pomodoro": {
-      "format": "{}",
-      // "return-type": "json",
-      // "interval": 60,
-      // "exec":"go run $HOME/dotfiles/wms/waybar/scripts/go_timer/main.go"
+      "format": " {}    ",
+      "return-type": "plain",
+      // "interval" : "once",
+      // "restart-interval": 2,
+      // "exec":"$HOME/dotfiles/wms/waybar/scripts/go_timer/start"
+      "exec":"tail -f $HOME/dotfiles/wms/waybar/scripts/go_timer/out"
+
   },
   "custom/test": {
     "format": "󰀻",
