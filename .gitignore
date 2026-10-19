@@ -8,6 +8,7 @@ mpd/log
 mpd/database
 mpd/state
 __pycache__
+ncmpcpp/error.log
 
 # -*- mode: gitignore; -*-
 *~
