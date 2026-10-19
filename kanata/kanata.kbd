@@ -60,7 +60,7 @@ process-unmapped-keys yes
         ;;(lsft rsft) XX break ;; optional skip typing-layer activation for upper case keys might solves some FJ problems
         ()  (multi
               (layer-switch typing)
-              (on-idle 5 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
+              (on-idle 8 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
             ) break
       )
   .spc-typing   (multi (layer-switch base) spc) ;; expilcitly leave typing-layer when hitting `space` - this allows experimenting with higher idle timeouts

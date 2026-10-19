@@ -35,7 +35,7 @@
 (setq
  doom-theme 'doom-oksolar-light
  ;; doom-font (font-spec :family "Maple Mono NF" :size 20)
- doom-font (font-spec :family "ComicShannsMono Nerd Font" :size 20)
+ doom-font (font-spec :family "VictorMono Nerd Font" :size 20)
 )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line

@@ -10,7 +10,7 @@ local modes={vertical = "1920x0",}
 
 hl.monitor({
 	output = laptop,
-	mode = "1920x1080",
+	-- mode = "1920x1200",
 	position = "0x0",
 	scale = 1,
 })
