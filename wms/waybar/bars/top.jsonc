@@ -30,7 +30,7 @@
 
   },
   "custom/test": {
-    "format": "󰀻",
+    "format": " 󰀻 ",
     "on-click": "rofi -show run",
   },
   "custom/emacs": {

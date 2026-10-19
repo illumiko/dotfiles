@@ -4,21 +4,23 @@
     border: none;
     border-radius: 0px;
     /* font-weight: bold; */
-    font-size: 16px;
+    font-size: 20px;
     padding: 0px 0px;
     margin: 0px;
     /* margin: 0px 0px; */
     /* min-height: 50px; */
     /* background: #ffffff; */
     /* background: rgba(242, 234, 187, 0.1); */
-}
-.top * {
-    font-family: "Ubuntu Nerd Font";
-}
 
-.main * {
-    font-family: "Ubuntu Nerd Font";
+    font-family: "Adwaita Sans";
 }
+/* .top * { */
+/*     font-family: "Ubuntu Nerd Font"; */
+/* } */
+/**/
+/* .main * { */
+/*     font-family: "Ubuntu Nerd Font"; */
+/* } */
 menu,
 tooltip {
   border-radius: 8px;

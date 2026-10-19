@@ -22,7 +22,7 @@
   "custom/notification": {
     "rotate": 270,
     "tooltip": false,
-    "format": "{icon}",
+    "format": "  {icon}",
     "format-icons": {
       "notification": "<span foreground='red'><sup></sup></span>",
       "none": "",
@@ -54,7 +54,7 @@
 // },
   "hyprland/workspaces": {
     "rotate": 270,
-    "format": " {icon} ",
+    "format": "{icon} ",
     "all-outputs": true,
     "on-click": "activate",
     "active-only": false,
@@ -64,14 +64,14 @@
       "*": [1, 2, 3, 4, 5, 6, 7, 8]
     },
     "format-icons": {
-      "1": " ",
-      "2": " ",
-      "3": "󰪷 ",
-      "4": "󰙯 ",
-      "5": "󱓧 ",
-      "6": " ",
-      "7": " ",
-      "8": " ",
+      "1": "",
+      "2": "",
+      "3": "󰪷",
+      "4": "󰙯",
+      "5": "󱓧",
+      "6": "",
+      "7": "",
+      "8": "",
       // "5": "V",
       // "6": "VI",
       // "7": "VII",
@@ -154,7 +154,7 @@
   },
   "pulseaudio/slider": {
     "min": 0,
-    "max": 140,
+    "max": 100,
     "orientation": "vertical",
   },
 
@@ -193,11 +193,12 @@
 
   "group/network": {
     "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 500,
-      "transition-left-to-right": true,
-    },
-    "modules": ["network", "network#speed"],
+    "modules": ["network"],
+    // "drawer": {
+    //   "transition-duration": 500,
+    //   "transition-left-to-right": true,
+    // },
+    // "modules": ["network", "network#speed"],
   },
 
   "network": {
@@ -212,6 +213,11 @@
     "format-ethernet": "󰈀 ",
     "format-disconnected": "󰖪 ",
     "format-linked": "󰈁",
+    "tooltip-format": "{ipaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)   \n{ipaddr} | {frequency} MHz{icon} ",
+    "tooltip-format-ethernet": "{ifname} 󰈀 \n{ipaddr} | {frequency} MHz{icon} ",
+    "tooltip-format-disconnected": "Not Connected to any type of Network",
+    "tooltip": true,
   },
   "network#speed": {
     "format": " {bandwidthDownBits} ",
