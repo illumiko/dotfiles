@@ -1,6 +1,6 @@
 {
-    "height": 10,
-  "name": "main",
+  // "height": 10,
+  "name": "bot",
   "layer": "top",
   "reload_style_on_change": true,
   "mod": "dock",
@@ -20,6 +20,10 @@
   "modules-center":["hyprland/window"],
     "hyprland/window": {
         "format": "{}",
-    }
+    },
+  "modules-left":["battery"],
+  "battery":{
+    "format": "{time} | {capacity} % ",
+  },
 
 }

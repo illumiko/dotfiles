@@ -1,7 +1,7 @@
 [
     {
         "reload_style_on_change": true,
-        "output":"eDP-1",
+        // "output":"eDP-1",
         "include":[
             "~/dotfiles/wms/waybar/bars/main.jsonc"
         ]
@@ -17,7 +17,7 @@
     },
     {
         "reload_style_on_change": false,
-        "output":"eDP-1",
+        // "output":"eDP-1",
         "include":[
             "~/dotfiles/wms/waybar/bars/top.jsonc"
         ]

@@ -4,7 +4,8 @@
     border: none;
     border-radius: 0px;
     /* font-weight: bold; */
-    font-size: 20px;
+    font-size: 16px;
+    /* color: white; */
     padding: 0px 0px;
     margin: 0px;
     /* margin: 0px 0px; */
@@ -14,9 +15,19 @@
 
     font-family: "Adwaita Sans";
 }
-/* .top * { */
-/*     font-family: "Ubuntu Nerd Font"; */
-/* } */
+.top *, .bot * {
+    color:white;
+}
+.bot #battery {
+    color: @white;
+}
+.bot * {
+    color:white;
+    padding:0px;
+    margin: 0px;
+    font-size:12px;
+
+}
 /**/
 /* .main * { */
 /*     font-family: "Ubuntu Nerd Font"; */
@@ -150,6 +161,7 @@ tooltip {
 #custom-notification {
     /* padding-right: 0px; */
     /* font-size: 20px; */
+    color:white;
     /* background: @background; */
 
 }
