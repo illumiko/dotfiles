@@ -5,6 +5,7 @@ local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
 local closeWindowBind = hl.bind(mainMod .. " + x", hl.dsp.window.close())
 
+
 -- closeWindowBind:set_enabled(false)
 
 hl.bind(mainMod .. "+ SHIFT +p", hl.dsp.exec_cmd("hyprpicker | awk '{print $1}' | wl-copy"))
@@ -166,6 +167,8 @@ hl.define_submap("timer", function()
 	hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
+-- this whole thing works and well its simple.
+-- a better solution to this is: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Uncommon-tips-and-tricks/#per-layout-bindings
 function unbind_navkeys()
 	hl.unbind(mainMod .. " + h")
 	hl.unbind(mainMod .. " + l")
@@ -173,31 +176,8 @@ function unbind_navkeys()
 	hl.unbind(mainMod .. " + k")
 	hl.unbind(mainMod .. "+SHIFT + j")
 end
-
-hl.bind(mainMod .. " + b", function()
-	unbind_navkeys()
-	local ws = hl.get_active_workspace()
-	local layouts = { "dwindle", "master", "monocle", "scrolling" }
-	local current = ws.tiled_layout
-	ws = hl.get_active_workspace()
-	if not ws then
-		return
-	end
-	current = ws.tiled_layout
-	local next_layout = layouts[1]
-	for i, name in ipairs(layouts) do
-		if current == name then
-			next_layout = layouts[(i % #layouts) + 1]
-
-			hl.config({ general = { layout = next_layout } })
-			break
-		end
-	end
-	current = next_layout
-	hl.config({ general = { layout = layouts[0] } })
-	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
-	-- hl.workspace_rule({ workspace = ws.id, layout = next_layout })
-
+function set_navbinds(current)
+    unbind_navkeys()
 	if current == "monocle" then
 		hl.bind(mainMod .. " + h", hl.dsp.layout("cyclenext"))
 		hl.bind(mainMod .. " + l", hl.dsp.layout("cycleprev"))
@@ -221,8 +201,39 @@ hl.bind(mainMod .. " + b", function()
 		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 		hl.bind(mainMod .. "+SHIFT + j", hl.dsp.layout("swapwithmaster master"))
 	end
-end)
 
+end
+
+hl.bind(mainMod .. " + b", function()
+	local ws = hl.get_active_workspace()
+	local layouts = { "dwindle", "master", "monocle", "scrolling" }
+	local current = ws.tiled_layout
+	ws = hl.get_active_workspace()
+	if not ws then
+		return
+	end
+	current = ws.tiled_layout
+	local next_layout = layouts[1]
+	for i, name in ipairs(layouts) do
+		if current == name then
+			next_layout = layouts[(i % #layouts) + 1]
+	        hl.workspace_rule({ workspace = ws.id, layout = next_layout })
+			break
+		end
+	end
+	current = next_layout
+	-- hl.config({ general = { layout = layouts[0] } })
+	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
+    set_navbinds(current)
+	hl.workspace_rule({ workspace = ws.id, layout = next_layout })
+
+end)
+hl.on("workspace.active", function(w)
+    hl.notification.create({text=w.tiled_layout,timeout=1000})
+    local current = w.tiled_layout
+    set_navbinds(current)
+	-- hl.dispatch(hl.dsp.exec_cmd("notify-send -t 1000 'Layout: " .. current .. "'"))
+end)
 -- local layouts = { "dwindle", "master", "scrolling", "monocle" }
 -- hl.bind(mainMod .. " + b", function()
 -- 	local current = hl.get_config("general.layout")

@@ -1,0 +1,7 @@
+-- hl.on("workspace.move_to_monitor", function(ws, m)
+--   hl.notification.create({
+--     text = "Workspace: " .. ws.name .. " moved to a monitor at x: " .. m.position.x,
+--     timeout = 4000,
+--     icon = "ok"
+--   })
+-- end)

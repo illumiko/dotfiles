@@ -1,7 +1,8 @@
 require("autostart")
 require("keybinds")
 require("animations")
-
+require("events")
+local layout_state = ""
 local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
 
@@ -25,7 +26,7 @@ hl.monitor({
 hl.config({
 	general = {
 		gaps_in = 5,
-		gaps_out = 20,
+		gaps_out = 5,
 
 		border_size = 5,
 
@@ -45,7 +46,7 @@ hl.config({
 	},
 
 	decoration = {
-		dim_inactive = false,
+		dim_inactive = true,
         dim_special = 0.8,
 		-- inactive_opacity = 0.8,
 		rounding = 10,
@@ -71,8 +72,8 @@ hl.config({
 	},
 
 	animations = {
-        workspace_wraparound = true,
-		enabled = true,
+        -- workspace_wraparound = true,
+		-- enabled = true,
 	},
 })
 
@@ -158,3 +159,5 @@ hl.window_rule({
     },
     no_dim = true,
 })
+hl.on("workspace.active", function(w)
+end)
