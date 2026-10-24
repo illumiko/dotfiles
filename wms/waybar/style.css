@@ -16,10 +16,10 @@
     font-family: "Adwaita Sans";
 }
 .top *, .bot * {
-    color:white;
+    color:@t;
 }
 .bot #battery {
-    color: @white;
+    color: @t;
 }
 .bot * {
     color:white;
