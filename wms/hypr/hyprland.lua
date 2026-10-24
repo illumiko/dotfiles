@@ -159,5 +159,3 @@ hl.window_rule({
     },
     no_dim = true,
 })
-hl.on("workspace.active", function(w)
-end)

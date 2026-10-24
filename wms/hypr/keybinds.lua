@@ -169,41 +169,56 @@ end)
 
 -- this whole thing works and well its simple.
 -- a better solution to this is: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Uncommon-tips-and-tricks/#per-layout-bindings
-function unbind_navkeys()
-	hl.unbind(mainMod .. " + h")
-	hl.unbind(mainMod .. " + l")
-	hl.unbind(mainMod .. " + j")
-	hl.unbind(mainMod .. " + k")
-	hl.unbind(mainMod .. "+SHIFT + j")
-end
-function set_navbinds(current)
-    unbind_navkeys()
-	if current == "monocle" then
-		hl.bind(mainMod .. " + h", hl.dsp.layout("cyclenext"))
-		hl.bind(mainMod .. " + l", hl.dsp.layout("cycleprev"))
-		hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
-		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
-	elseif current == "dwindle" then
-		hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
-		hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-		hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
-		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
-	elseif current == "scrolling" then
-		hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
-		hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-		hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
-		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
-		hl.bind(mainMod .. "+SHIFT + j", hl.dsp.layout("consume_or_expel prev"))
-	elseif current == "master" then
-		hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
-		hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-		hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
-		hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
-		hl.bind(mainMod .. "+SHIFT + j", hl.dsp.layout("swapwithmaster master"))
-	end
+local function layout_bind(bind_table)
+    return function ()
+        local workspace = hl.get_active_workspace() or hl.get_active_special_workspace()
+        if not workspace then
+            return
+        end
+        local layout = workspace.tiled_layout
+        if bind_table[layout] then
+            hl.dispatch(bind_table[layout])
+        end
+    end
 
 end
+hl.bind(mainMod .. " + h ", layout_bind({
+    monocle = hl.dsp.layout("cyclenext"),
+    dwindle = hl.dsp.focus({ direction = "left" }),
+    scrolling = hl.dsp.focus({ direction = "left" }),
+    master = hl.dsp.focus({ direction = "left" }),
+}))
 
+hl.bind(mainMod .. " + l ", layout_bind({
+    monocle = hl.dsp.layout("cycleprev"),
+    dwindle = hl.dsp.focus({ direction = "right" }),
+    scrolling = hl.dsp.focus({ direction = "right" }),
+    master = hl.dsp.focus({ direction = "right" }),
+}))
+hl.bind(mainMod .. " + k ", layout_bind({
+    monocle = hl.dsp.focus({ direction = "up" }),
+    dwindle = hl.dsp.focus({ direction = "up" }),
+    scrolling = hl.dsp.focus({ direction = "up" }),
+    master = hl.dsp.focus({ direction = "up" }),
+}))
+hl.bind(mainMod .. " + j ", layout_bind({
+    monocle = hl.dsp.focus({ direction = "down" }),
+    dwindle = hl.dsp.focus({ direction = "down" }),
+    scrolling = hl.dsp.focus({ direction = "down" }),
+    master = hl.dsp.focus({ direction = "down" }),
+}))
+hl.bind(mainMod .. "+SHIFT + j ", layout_bind({
+    scrolling = hl.dsp.layout("consume_or_expel prev"),
+    master = hl.dsp.layout("swapwithmaster master"),
+}))
+hl.bind(mainMod .. "+ semicolon", layout_bind({
+    scrolling = hl.dsp.layout("move -500"),
+    -- master = hl.dsp.layout("swapwithmaster master"),
+}))
+hl.bind(mainMod .. "+ apostrophe", layout_bind({
+    scrolling = hl.dsp.layout("move +500"),
+    -- master = hl.dsp.layout("swapwithmaster master"),
+}))
 hl.bind(mainMod .. " + b", function()
 	local ws = hl.get_active_workspace()
 	local layouts = { "dwindle", "master", "monocle", "scrolling" }
@@ -224,16 +239,15 @@ hl.bind(mainMod .. " + b", function()
 	current = next_layout
 	-- hl.config({ general = { layout = layouts[0] } })
 	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
-    set_navbinds(current)
 	hl.workspace_rule({ workspace = ws.id, layout = next_layout })
 
 end)
-hl.on("workspace.active", function(w)
-    hl.notification.create({text=w.tiled_layout,timeout=1000})
-    local current = w.tiled_layout
-    set_navbinds(current)
-	-- hl.dispatch(hl.dsp.exec_cmd("notify-send -t 1000 'Layout: " .. current .. "'"))
-end)
+-- hl.on("workspace.active", function(w)
+--     hl.notification.create({text=w.tiled_layout,timeout=1000})
+--     local current = w.tiled_layout
+--     set_navbinds(current)
+-- 	-- hl.dispatch(hl.dsp.exec_cmd("notify-send -t 1000 'Layout: " .. current .. "'"))
+-- end)
 -- local layouts = { "dwindle", "master", "scrolling", "monocle" }
 -- hl.bind(mainMod .. " + b", function()
 -- 	local current = hl.get_config("general.layout")
