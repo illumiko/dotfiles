@@ -1,6 +1,6 @@
 # # include ~/.cache/wal/colors-kitty.conf
 # include ~/dotfiles/kitty/colors/duotone_dark.conf
-include ~/dotfiles/kitty/colors/onelight.conf
+include ~/dotfiles/kitty/colors/kanagawa_lotus.conf
 #background  #ffffff
 #active_tab_background #111111
 # active_tab_foreground #eeeeee
@@ -12,18 +12,19 @@ include ~/dotfiles/kitty/colors/onelight.conf
 //transparency
 #background_opacity 0.8
 window_padding_width 5
+remember_window_size no
 cursor_trail 1
 
 // font
-# font_family JetBrainsMono Nerd Font
+font_family JetBrainsMono Nerd Font
  # font_family ZedMono NFM
  # font_family ComicShannsMono Nerd Font
 # font_family Maple Mono NF
-font_family VictorMono Nerd Font
+# font_family VictorMono Nerd Font
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
-font_size 16
+font_size 14
 # modify_font cell_height 5px
 
 
@@ -91,6 +92,6 @@ map ctrl+down neighboring_window down
 
 
 # BEGIN_KITTY_THEME
-# Nord
-# include current-theme.conf
+# Nordfox
+include current-theme.conf
 # END_KITTY_THEME
