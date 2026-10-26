@@ -60,7 +60,7 @@
       // "interval" : "once",
       // "restart-interval": 2,
       // "exec":"$HOME/dotfiles/wms/waybar/scripts/go_timer/start"
-      "exec":"tail -f $HOME/dotfiles/wms/waybar/scripts/go_timer/out"
+      "exec":"tail -f $HOME/dotfiles/wms/waybar/scripts/timer/out"
 
   },
   "custom/test": {

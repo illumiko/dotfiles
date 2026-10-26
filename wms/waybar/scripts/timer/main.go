@@ -31,7 +31,7 @@ const (
 	syscall_start syscall.Signal = syscall.SIGUSR1
 	syscall_stop  syscall.Signal = syscall.SIGUSR2
 
-	root       string = "/home/illumiko/dotfiles/wms/waybar/scripts/go_timer/"
+	root       string = "/home/eyanat/dotfiles/wms/waybar/scripts/timer/"
 	cmd_file   string = root + "cmd"
 	out_file   string = root + "out"
 	logbook    string = "logbook.json"
@@ -46,7 +46,7 @@ func ensure_fifo(path string) error {
 	if os.IsNotExist(err) {
 		err = syscall.Mkfifo(path, permission)
 		if err != nil {
-			return fmt.Errorf("mkfifo failed %w", err)
+			return fmt.Errorf("10mkfifo failed %w", err)
 		}
 	}
 	return nil
