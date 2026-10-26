@@ -2,6 +2,7 @@ require("autostart")
 require("keybinds")
 require("animations")
 require("events")
+require("scratchpads")
 local layout_state = ""
 local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
@@ -102,11 +103,6 @@ hl.config({
 		},
 	},
 })
-hl.workspace_rule({workspace="7",monitor=desktop,decorate=false});
-local scratchpads = { "terminal", "emacs", "ymuse", "pulsemixer", "music" }
-for _, value in ipairs(scratchpads) do
-	hl.workspace_rule({ workspace = "special:" .. value, gaps_out = 80, gaps_in = 40 })
-end
 hl.gesture({
 	workspace_swipe_distace = 100,
 	fingers = 3,

@@ -77,10 +77,6 @@ hl.bind(mainMod .. " + z", hl.dsp.focus({ workspace = "previous", on_current_mon
 
 -- Example special workspace (scratchpad)
 -- hl.bind(altmod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-hl.bind(altmod .. " + q", hl.dsp.workspace.toggle_special("music"))
-hl.bind(altmod .. " + w", hl.dsp.workspace.toggle_special("pulsemixer"))
-hl.bind(altmod .. " + e", hl.dsp.workspace.toggle_special("terminal"))
-hl.bind(altmod .. " + a", hl.dsp.workspace.toggle_special("emacs"))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -239,8 +235,15 @@ hl.bind(mainMod .. " + b", function()
 	current = next_layout
 	-- hl.config({ general = { layout = layouts[0] } })
 	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
+    hl.notification.create({timeout=1000, text=next_layout,font_size=20})
 	hl.workspace_rule({ workspace = ws.id, layout = next_layout })
 
+end)
+hl.on("workspace.active", function (ws)
+    hl.notification.create({text=ws.tiled_layout , timeout=1000})
+end)
+hl.on("monitor.focused", function (ws)
+    hl.notification.create({text=ws.tiled_layout , timeout=1000})
 end)
 -- hl.on("workspace.active", function(w)
 --     hl.notification.create({text=w.tiled_layout,timeout=1000})
