@@ -7,7 +7,7 @@ local closeWindowBind = hl.bind(mainMod .. " + x", hl.dsp.window.close())
 
 
 -- closeWindowBind:set_enabled(false)
-
+hl.bind(mainMod .. "+ u", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. "+ SHIFT +p", hl.dsp.exec_cmd("hyprpicker | awk '{print $1}' | wl-copy"))
 hl.bind(mainMod .. "+ SHIFT +l", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(
@@ -212,11 +212,11 @@ hl.bind(mainMod .. "+SHIFT + j ", layout_bind({
     master = hl.dsp.layout("swapwithmaster master"),
 }))
 hl.bind(mainMod .. "+ semicolon", layout_bind({
-    scrolling = hl.dsp.layout("move -500"),
+    scrolling = hl.dsp.layout("colresize -0.200"),
     -- master = hl.dsp.layout("swapwithmaster master"),
 }))
 hl.bind(mainMod .. "+ apostrophe", layout_bind({
-    scrolling = hl.dsp.layout("move +500"),
+    scrolling = hl.dsp.layout("colresize +0.200"),
     -- master = hl.dsp.layout("swapwithmaster master"),
 }))
 hl.bind(mainMod .. " + b", function()
