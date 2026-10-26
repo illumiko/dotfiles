@@ -74,7 +74,7 @@ process-unmapped-keys yes
   f (t! homerowmod $tot 160 f lsft)
   j (t! homerowmod $tot 160 j lsft)
   k (t! homerowmod $tot 160 k lctl)
- ;; l (t! homerowmod $tot 300 l lctl)
+  l (t! homerowmod $tot 190 l alt)
  ;; s (t! homerowmodfiltered $tot 400 s lalt (a)) ;; example fix of the 'as' role 
  ;; l (t! homerowmod $tot 400 l ralt)
  esc  @alt-esc
