@@ -1,6 +1,6 @@
 {
   "name": "top",
-  "layer": "bottom",
+  "layer": "top",
   "reload_style_on_change": true,
   "position": "top",
   "mod": "dock",
