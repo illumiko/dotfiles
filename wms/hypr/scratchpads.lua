@@ -2,7 +2,7 @@ local altmod = "ALT"
 hl.workspace_rule({workspace="7",monitor=desktop,decorate=false});
 local scratchpads = { "terminal", "emacs", "ymuse", "pulsemixer", "music","neovide" }
 for _, value in ipairs(scratchpads) do
-	hl.workspace_rule({ workspace = "special:" .. value, gaps_out = 80, gaps_in = 40 })
+	hl.workspace_rule({ workspace = "special:" .. value, gaps_out = 40, gaps_in = 40 })
 end
 
 hl.on("hyprland.start", function()

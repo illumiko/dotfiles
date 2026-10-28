@@ -91,9 +91,9 @@ hl.config({
 		repeat_rate = 30,
 		follow_mouse = 2,
 		mouse_refocus = false,
-		accel_profile = "flat",
+		-- accel_profile = "flat",
 
-		sensitivity = 3,
+		sensitivity = 0.5,
 
 		touchpad = {
             scroll_factor = 0.3,
