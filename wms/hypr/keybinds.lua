@@ -6,7 +6,13 @@ local laptop = "eDP-1"
 local closeWindowBind = hl.bind(mainMod .. " + x", hl.dsp.window.close())
 
 
+--[=[
+TODO: add a helper function to with a parameter for keybinds that should push notification for values
+being changed
+]=]
 -- closeWindowBind:set_enabled(false)
+
+
 hl.bind(mainMod .. "+ u", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. "+ SHIFT +p", hl.dsp.exec_cmd("hyprpicker | awk '{print $1}' | wl-copy"))
 hl.bind(mainMod .. "+ SHIFT +l", hl.dsp.exec_cmd("hyprlock"))
@@ -116,11 +122,29 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
+
+
+
+
+
+
+---------------------------------
 -- submap
+----------------------------------
 hl.bind("ALT + f", hl.dsp.submap("system"))
 
 -- Start a submap called "resize".
 hl.define_submap("system", function()
+	hl.bind("1", function ()
+	   hl.dsp.exec_cmd("bluetoothctl connect 90:BF:D9:5C:A6:C8")
+       hl.notification.create({text="connecting liberty 5 pro" , timeout=1000})
+       hl.dsp.submap("reset")
+	end)
+	hl.bind("2", function ()
+	   hl.dsp.exec_cmd("bluetoothctl disconnect 90:BF:D9:5C:A6:C8")
+       hl.notification.create({text="disconnecting liberty 5 pro" , timeout=1000})
+       hl.dsp.submap("reset")
+	end)
 	hl.bind("d", hl.dsp.exec_cmd("brightnessctl s +10%"))
 	hl.bind("a", hl.dsp.exec_cmd("brightnessctl s 10%-"), { repeating = true })
 	hl.bind("w", hl.dsp.exec_cmd("ddcutil setvcp 10 + 10"), { repeating = true })
@@ -165,6 +189,13 @@ end)
 
 -- this whole thing works and well its simple.
 -- a better solution to this is: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Uncommon-tips-and-tricks/#per-layout-bindings
+
+
+
+
+---------------------------------
+-- dynamic layout
+----------------------------------
 local function layout_bind(bind_table)
     return function ()
         local workspace = hl.get_active_workspace() or hl.get_active_special_workspace()
