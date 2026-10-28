@@ -16,7 +16,7 @@
   // "margin-right":15,
   // "margin-left": 15,
   "fixed-center": true,
-  "modules-center": ["mpris"],
+  "modules-center": ["mpris","privacy"],
    "mpris": {
      "format": "{player_icon} {dynamic}",
      "format-paused": "{status_icon} {dynamic}",
@@ -29,6 +29,43 @@
      },
 	// "ignored-players": ["firefox"]
 },
+    "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 18,
+    "transition-duration": 250,
+    "modules": [
+        {
+            "type": "screenshare",
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        },
+        {
+            "type": "audio-out",
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        },
+        {
+            "type": "audio-in",
+            "tooltip": true,
+            "tooltip-icon-size": 24
+        },
+        {
+            "type": "location",
+            "icon-name": "location-services-active-symbolic"
+        }
+    ],
+    "ignore-monitor": true,
+    "ignore": [
+        {
+            "type": "audio-in",
+            "name": "cava"
+        },
+        {
+            "type": "screenshare",
+            "name": "obs"
+        }
+    ]
+    },
   "modules-left": ["hyprland/submap","clock"],
   "modules-right": ["custom/pomodoro","custom/emacs","custom/test","custom/notification",],
 

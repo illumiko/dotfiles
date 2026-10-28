@@ -232,6 +232,11 @@ tooltip {
   animation-direction: alternate;
 }
 
+.top #mpris {
+    padding-right: 20px;
+
+}
+
 
 
 #pulseaudio.mic {
