@@ -25,4 +25,9 @@
   "battery":{
     "format": "{time} | {capacity} % ",
   },
+  "modules-right":["custom/sleep"],
+  "custom/sleep": {
+    "format": "  󰤄   ",
+    "on-click": "systemctl sleep && hyprlock",
+  },
 }

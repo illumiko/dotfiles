@@ -67,7 +67,7 @@
     ]
     },
   "modules-left": ["hyprland/submap","clock"],
-  "modules-right": ["custom/pomodoro","custom/emacs","custom/test","custom/notification",],
+  "modules-right": ["custom/pomodoro","custom/switcher","custom/emacs","custom/test","custom/notification",],
 
   "custom/notification": {
     // "rotate": 270,
@@ -100,8 +100,13 @@
       "exec":"tail -f $HOME/dotfiles/wms/waybar/scripts/timer/out"
 
   },
+  "custom/switcher": {
+    "format": "    ",
+    "on-click": "bash $HOME/dotfiles/wms/waybar/scripts/gcs/switcher.sh light",
+    "on-click-right": "bash $HOME/dotfiles/wms/waybar/scripts/gcs/switcher.sh dark",
+  },
   "custom/test": {
-    "format": "  󰀻 ",
+    "format": "  󰀻  ",
     "on-click": "rofi -show run",
   },
   "custom/emacs": {
