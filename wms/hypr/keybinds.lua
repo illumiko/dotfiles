@@ -136,14 +136,15 @@ hl.bind("ALT + f", hl.dsp.submap("system"))
 -- Start a submap called "resize".
 hl.define_submap("system", function()
 	hl.bind("1", function ()
-	   hl.dsp.exec_cmd("bluetoothctl connect 90:BF:D9:5C:A6:C8")
-       hl.notification.create({text="connecting liberty 5 pro" , timeout=1000})
-       hl.dsp.submap("reset")
+        hl.dispatch(hl.dsp.exec_cmd("bluetoothctl connect 90:BF:D9:5C:A6:C8"))
+        hl.dispatch(hl.dsp.submap("reset"))
+        hl.notification.create({text="connecting liberty 5 pro" , timeout=1000})
+	   
 	end)
 	hl.bind("2", function ()
-	   hl.dsp.exec_cmd("bluetoothctl disconnect 90:BF:D9:5C:A6:C8")
-       hl.notification.create({text="disconnecting liberty 5 pro" , timeout=1000})
-       hl.dsp.submap("reset")
+        hl.dispatch(hl.dsp.exec_cmd("bluetoothctl disconnect 90:BF:D9:5C:A6:C8"))
+        hl.dispatch(hl.dsp.submap("reset"))
+        hl.notification.create({text="disconnecting liberty 5 pro" , timeout=1000})
 	end)
 	hl.bind("d", hl.dsp.exec_cmd("brightnessctl s +10%"))
 	hl.bind("a", hl.dsp.exec_cmd("brightnessctl s 10%-"), { repeating = true })
@@ -172,11 +173,14 @@ hl.define_submap("timer", function()
 	hl.bind("2", hl.dsp.exec_cmd([[echo "55" >> /home/eyanat/dotfiles/wms/waybar/scripts/timer/cmd]]))
 	hl.bind("2", hl.dsp.submap("reset"))
 	-- hl.bind("3", hl.dsp.exec_cmd([[echo "25" >> /home/eyanat/dotfiles/wms/waybar/scripts/timer/cmd && sleep 1 && echo "25" >> /home/illumiko/dotfiles/wms/waybar/scripts/go_timer/cmd]]))
-	hl.bind("3", hl.dsp.exec_cmd([[echo "20" >> /home/eyanat/dotfiles/wms/waybar/scripts/timer/cmd]]))
+	hl.bind("3", hl.dsp.exec_cmd([[echo "25" >> /home/eyanat/dotfiles/wms/waybar/scripts/timer/cmd]]))
 	hl.bind("3", hl.dsp.submap("reset"))
 
-	hl.bind("4", hl.dsp.exec_cmd([[echo "10" >> /home/eyanat/dotfiles/wms/waybar/scripts/timer/cmd]]))
+	hl.bind("4", hl.dsp.exec_cmd([[echo "5" >> /home/eyanat/dotfiles/wms/waybar/scripts/timer/cmd]]))
 	hl.bind("4", hl.dsp.submap("reset"))
+
+	hl.bind("5", hl.dsp.exec_cmd([[echo "15" >> /home/eyanat/dotfiles/wms/waybar/scripts/timer/cmd]]))
+	hl.bind("5", hl.dsp.submap("reset"))
 	-- Set repeating binds for resizing the active window.
 	-- hl.bind("d", hl.dsp.exec_cmd("kitty"), { repeating = true })
 	-- hl.bind("left", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
@@ -259,7 +263,7 @@ hl.bind(mainMod .. " + b", function()
 	for i, name in ipairs(layouts) do
 		if current == name then
 			next_layout = layouts[(i % #layouts) + 1]
-	        hl.workspace_rule({ workspace = ws.id, layout = next_layout })
+	        hl.workspace_rule({ workspace = "".. ws.id, layout = next_layout })
 			break
 		end
 	end
@@ -267,15 +271,15 @@ hl.bind(mainMod .. " + b", function()
 	-- hl.config({ general = { layout = layouts[0] } })
 	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
     hl.notification.create({timeout=1000, text=next_layout,font_size=20})
-	hl.workspace_rule({ workspace = ws.id, layout = next_layout })
+	hl.workspace_rule({ workspace ="" ..ws.id, layout = next_layout })
 
 end)
 hl.on("workspace.active", function (ws)
-    hl.notification.create({text=ws.tiled_layout , timeout=1000})
+    hl.notification.create({text="layout: "..ws.tiled_layout , timeout=1000})
 end)
-hl.on("monitor.focused", function (ws)
-    hl.notification.create({text=ws.tiled_layout , timeout=1000})
-end)
+-- hl.on("workspace.move_to_monitor", function (ws,w)
+--     hl.notification.create({text="layout: "..ws.name, timeout=1000})
+-- end)
 -- hl.on("workspace.active", function(w)
 --     hl.notification.create({text=w.tiled_layout,timeout=1000})
 --     local current = w.tiled_layout

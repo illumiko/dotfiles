@@ -1,9 +1,8 @@
 require("autostart")
 require("keybinds")
-require("animations")
+-- require("animations")
 require("events")
 require("scratchpads")
-local layout_state = ""
 local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
 
@@ -29,7 +28,7 @@ hl.config({
 		gaps_in = 5,
 		gaps_out = 5,
 
-		border_size = 5,
+		border_size = 0,
 
 		col = {
 			-- active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
@@ -147,6 +146,15 @@ hl.window_rule({
     dim_around = false,
     no_shadow = true,
     no_blur = true,
+})
+hl.window_rule({
+    name="better picker",
+    match = {
+        class = "^(hyprland-share-picker)$"
+    },
+    size = "300 400",
+    float = true,
+    center = true,
 })
 hl.window_rule({
     name="codeblocks",
