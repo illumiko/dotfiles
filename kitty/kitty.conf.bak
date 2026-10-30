@@ -92,6 +92,6 @@ map ctrl+down neighboring_window down
 
 
 # BEGIN_KITTY_THEME
-# Nordfox
+# Rosé Pine Dawn
 include current-theme.conf
 # END_KITTY_THEME
