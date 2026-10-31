@@ -17,7 +17,7 @@ hl.monitor({
 })
 hl.monitor({
     -- transform = 3,
-	output = desktop,
+	output = "DP-1",
 	-- mode = modes.vertical,
 	position = "auto-up",
 	scale = 1,
