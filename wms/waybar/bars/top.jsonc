@@ -8,7 +8,7 @@
   "spacing": 0,
   "passthrough": false,
   "gtk-layer-shell": true,
-  "height": 0,
+  "height": 20,
   "margin-bottom": 0,
   "margin-right": 0,
   "margin-left": 0,
