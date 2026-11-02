@@ -18,6 +18,11 @@
 .top *, .bot * {
     color:@t;
 }
+.bot #window {
+    padding:0px;
+    margin: 0px;
+}
+
 .bot #battery {
     color: @t;
 }

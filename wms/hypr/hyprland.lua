@@ -64,7 +64,7 @@ hl.config({
 		},
 
 		blur = {
-			enabled = true,
+			enabled = false,
 			size = 3,
 			passes = 5,
 			vibrancy = 0.1696,
@@ -73,7 +73,7 @@ hl.config({
 
 	animations = {
         -- workspace_wraparound = true,
-		-- enabled = true,
+		enabled = true,
 	},
 })
 

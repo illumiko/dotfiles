@@ -5,7 +5,7 @@
   "position": "top",
   "mod": "dock",
   "exclusive": true,
-  "spacing": 0,
+  "spacing": 20,
   "passthrough": false,
   "gtk-layer-shell": true,
   "height": 20,
@@ -27,6 +27,9 @@
      "status-icons": {
      	"paused": ""
      },
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "smooth-scrolling-threshold": 1,
 	// "ignored-players": ["firefox"]
 },
     "privacy": {
@@ -72,7 +75,7 @@
   "custom/notification": {
     // "rotate": 270,
     "tooltip": false,
-    "format": " {icon}  ",
+    "format": "{icon}",
     "format-icons": {
       "notification": "<span foreground='red'><sup></sup></span>",
       "none": "",
@@ -92,7 +95,7 @@
   },
 
   "custom/pomodoro": {
-      "format": " {}    ",
+      "format": " {} ",
       "return-type": "plain",
       // "interval" : "once",
       // "restart-interval": 2,
@@ -101,12 +104,12 @@
 
   },
   "custom/switcher": {
-    "format": "    ",
+    "format": " ",
     "on-click": "bash $HOME/dotfiles/wms/waybar/scripts/gcs/switcher.sh light",
     "on-click-right": "bash $HOME/dotfiles/wms/waybar/scripts/gcs/switcher.sh dark",
   },
   "custom/test": {
-    "format": "  󰀻  ",
+    "format": "󰀻",
     "on-click": "rofi -show run",
   },
   "custom/emacs": {
