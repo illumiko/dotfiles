@@ -1,6 +1,7 @@
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local altmod = "ALT"
-local terminal = "kitty"
+-- local terminal = "kitty"
+local terminal = "foot"
 local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
 local closeWindowBind = hl.bind(mainMod .. " + x", hl.dsp.window.close())
@@ -23,7 +24,7 @@ hl.bind(
 	)
 )
 hl.bind(
-	mainMod .. "+ M",
+	mainMod .. "+SHIFT + M",
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 )
 
@@ -38,7 +39,7 @@ hl.bind(
 -- 	mainMod .. "+ ctrl + M",
 -- 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 -- )
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("bash $HOME/dotfiles/wms/hypr/scripts/rofi_run.sh"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("rofi -show run"))
 hl.bind(mainMod .. " + code:36", hl.dsp.exec_cmd(terminal))
 -- hl.bind(mainMod .. "+ SHIFT + C", hl.dsp.exec_cmd("~/dotfiles/hypr/scripts/screenshot selection"))
 hl.bind(mainMod .. "+ TAB", hl.dsp.exec_cmd("rofi -show recursivebrowser"))

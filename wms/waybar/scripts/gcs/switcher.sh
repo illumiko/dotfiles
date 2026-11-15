@@ -5,7 +5,7 @@ for name in "$@"; do
         cat $HOME/dotfiles/kitty/colors/rose-pine-moon > $HOME/dotfiles/kitty/main-theme.conf
         brightnessctl s 50%
         cat $HOME/dotfiles/nvim/lua/user/color_dark.lua > $HOME/dotfiles/nvim/lua/user/color.lua
-
+        pkill -SIGUSR1 foot #dark
 
     elif [[ "$name" == light ]]; then
         brightnessctl s 20%
@@ -14,5 +14,6 @@ for name in "$@"; do
         $HOME/dotfiles/wms/waybar/color_switcher.sh dark
         cat $HOME/dotfiles/kitty/colors/rose-pine-dawn > $HOME/dotfiles/kitty/main-theme.conf
         cat $HOME/dotfiles/nvim/lua/user/color_light.lua > $HOME/dotfiles/nvim/lua/user/color.lua
+        pkill -SIGUSR2 foot #dark
     fi
 done
