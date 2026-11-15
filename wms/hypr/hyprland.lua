@@ -1,6 +1,6 @@
 require("autostart")
 require("keybinds")
--- require("animations")
+require("animations")
 require("events")
 require("scratchpads")
 local desktop = "HDMI-A-1"
