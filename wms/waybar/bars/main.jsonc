@@ -79,6 +79,9 @@
   },
 
   "modules-center": [],
+
+
+
   "modules-right": [
     "custom/power_profile",
     "group/sound",

@@ -107,6 +107,14 @@
     "format": " ",
     "on-click": "bash $HOME/dotfiles/wms/waybar/scripts/gcs/switcher.sh light",
     "on-click-right": "bash $HOME/dotfiles/wms/waybar/scripts/gcs/switcher.sh dark",
+    "exec": "sh -c 'v=$(( $(brightnessctl g) * 100 / $(brightnessctl m) )); printf \"%s%%\\nBrightness: %s%%\\n\" \"$v\" \"$v\"'",
+    // "on-update": "sh -c 'v=$(( $(brightnessctl g) * 100 / $(brightnessctl m) )); printf \"%s%%\\nBrightness: %s%%\\n\" \"$v\" \"$v\"'",
+    "tooltip": true,
+    "on-scroll-up": "brightnessctl s +5%",
+    "on-scroll-down": "brightnessctl s 5%-",
+    "smooth-scrolling-threshold": 1,
+    "interval": "once"
+    // "tooltip-format" : "echo 'hello'"
   },
   "custom/test": {
     "format": "󰀻",
