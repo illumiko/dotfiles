@@ -11,6 +11,7 @@ local modes={vertical = "1920x0",}
 
 hl.monitor({
 	output = laptop,
+    disabled = true,
 	-- mode = "1920x1200",
 	position = "0x0",
 	scale = 1,
@@ -19,14 +20,14 @@ hl.monitor({
     -- transform = 3,
 	output = "DP-1",
 	-- mode = modes.vertical,
-	position = "auto-up",
+	position = "auto-left",
 	scale = 1,
 })
 
 hl.config({
 	general = {
 		gaps_in = 5,
-		gaps_out = 5,
+		gaps_out = 20,
 
 		border_size = 0,
 
@@ -49,8 +50,8 @@ hl.config({
 		dim_inactive = true,
         dim_special = 0.8,
 		-- inactive_opacity = 0.8,
-		rounding = 10,
-		rounding_power = 2,
+		rounding = 20,
+		-- rounding_power = 0,
 
 		-- Change transparency of focused and unfocused windows
 		active_opacity = 1.0,
@@ -73,7 +74,8 @@ hl.config({
 
 	animations = {
         -- workspace_wraparound = true,
-		enabled = true,
+        -- speed = 1,
+		enabled = false,
 	},
 })
 
@@ -120,14 +122,14 @@ hl.gesture({
 	-- 	hl.notification.create({ text = "I just swiped on my trackpad!", duration = 5000, icon = "ok" })
 	-- end,
 })
-hl.window_rule({
-    name="Netbeans with TMC",
-    match = {
-        class="Netbeans with TMC",
-        float = true,
-    },
-    center = true,
-})
+-- hl.window_rule({
+--     name="Netbeans with TMC",
+--     match = {
+--         class="Netbeans with TMC",
+--         float = true,
+--     },
+--     center = true,
+-- })
 hl.window_rule({
     name="termite",
     match = {

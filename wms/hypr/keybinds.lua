@@ -1,11 +1,10 @@
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local altmod = "ALT"
 -- local terminal = "kitty"
-local terminal = "foot"
+local terminal = "footclient"
 local desktop = "HDMI-A-1"
 local laptop = "eDP-1"
 local closeWindowBind = hl.bind(mainMod .. " + x", hl.dsp.window.close())
-
 
 --[=[
 TODO: add a helper function to with a parameter for keybinds that should push notification for values
@@ -13,6 +12,9 @@ being changed
 ]=]
 -- closeWindowBind:set_enabled(false)
 
+local notification_send= function(text)
+	    hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 '" .. text .. "'"))
+    end
 
 hl.bind(mainMod .. "+ u", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind(mainMod .. "+ SHIFT +p", hl.dsp.exec_cmd("hyprpicker | awk '{print $1}' | wl-copy"))
@@ -52,9 +54,20 @@ hl.bind(mainMod .. "+ TAB", hl.dsp.exec_cmd("rofi -show recursivebrowser"))
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 -- local maps = { "1", "2", "3", "q", "w", "e", "a", "s" }
+
+--workspace switchbind
 local maps = { "q", "w", "e", "r", "t", "a", "s" }
 for i, key in ipairs(maps) do
-	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i, on_current_monitor = true }))
+	hl.bind(mainMod .. " + " .. key, function()
+		local g = hl.get_active_special_workspace()
+		if not g then
+			hl.dispatch(hl.dsp.focus({ workspace = i, on_current_monitor = true }))
+			return
+		end
+		local specialworkspacename = string.sub(g.name, 9, -1)
+		hl.dispatch(hl.dsp.focus({ workspace = i, on_current_monitor = true }))
+		hl.dispatch(hl.dsp.workspace.toggle_special(specialworkspacename))
+	end)
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
@@ -123,12 +136,6 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
-
-
-
-
-
-
 ---------------------------------
 -- submap
 ----------------------------------
@@ -136,16 +143,15 @@ hl.bind("ALT + f", hl.dsp.submap("system"))
 
 -- Start a submap called "resize".
 hl.define_submap("system", function()
-	hl.bind("1", function ()
-        hl.dispatch(hl.dsp.exec_cmd("bluetoothctl connect 90:BF:D9:5C:A6:C8"))
-        hl.dispatch(hl.dsp.submap("reset"))
-        hl.notification.create({text="connecting liberty 5 pro" , timeout=1000})
-	   
+	hl.bind("1", function()
+		hl.dispatch(hl.dsp.exec_cmd("bluetoothctl connect 90:BF:D9:5C:A6:C8"))
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.notification.create({ text = "connecting liberty 5 pro", timeout = 1000 })
 	end)
-	hl.bind("2", function ()
-        hl.dispatch(hl.dsp.exec_cmd("bluetoothctl disconnect 90:BF:D9:5C:A6:C8"))
-        hl.dispatch(hl.dsp.submap("reset"))
-        hl.notification.create({text="disconnecting liberty 5 pro" , timeout=1000})
+	hl.bind("2", function()
+		hl.dispatch(hl.dsp.exec_cmd("bluetoothctl disconnect 90:BF:D9:5C:A6:C8"))
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.notification.create({ text = "disconnecting liberty 5 pro", timeout = 1000 })
 	end)
 	hl.bind("d", hl.dsp.exec_cmd("brightnessctl s +10%"))
 	hl.bind("a", hl.dsp.exec_cmd("brightnessctl s 10%-"), { repeating = true })
@@ -160,6 +166,34 @@ hl.define_submap("system", function()
 	hl.bind("up", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
 	hl.bind("down", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
 
+	--toggle animations
+	hl.bind("n", function()
+		local cfg =hl.get_config("animations.enabled")
+	-- hl.notification.create({ timeout = 1000, text = , font_size = 20 })
+		-- local is_enabled = cfg.animations.enabled
+		if cfg then
+			hl.config({ ["animations.enabed"] = false })
+            notification_send("animations is turned off")
+		else
+			hl.config({ ["animations.enabled"] = true })
+            notification_send("animations is turned on")
+		end
+	end)
+	--toggle dim
+	hl.bind("b", function()
+		local cfg =hl.get_config("decoration.dim_inactive")
+	-- hl.notification.create({ timeout = 1000, text = , font_size = 20 })
+		-- local is_enabled = cfg.animations.enabled
+		if cfg then
+			hl.config({ ["decoration.dim_inactive"] = false })
+			hl.config({ ["general.border_size"] = 4 })
+            notification_send("dim_inactive is turned off")
+		else
+			hl.config({ ["decoration.dim_inactive"] = true })
+			hl.config({ ["general.border_size"] = 0 })
+            notification_send("dim_inactive is turned on")
+		end
+	end)
 	-- Use `reset` to go back to the global submap
 	hl.bind("escape", hl.dsp.submap("reset"))
 end)
@@ -195,62 +229,79 @@ end)
 -- this whole thing works and well its simple.
 -- a better solution to this is: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Uncommon-tips-and-tricks/#per-layout-bindings
 
-
-
-
 ---------------------------------
 -- dynamic layout
 ----------------------------------
 local function layout_bind(bind_table)
-    return function ()
-        local workspace = hl.get_active_workspace() or hl.get_active_special_workspace()
-        if not workspace then
-            return
-        end
-        local layout = workspace.tiled_layout
-        if bind_table[layout] then
-            hl.dispatch(bind_table[layout])
-        end
-    end
-
+	return function()
+		local workspace = hl.get_active_workspace() or hl.get_active_special_workspace()
+		if not workspace then
+			return
+		end
+		local layout = workspace.tiled_layout
+		if bind_table[layout] then
+			hl.dispatch(bind_table[layout])
+		end
+	end
 end
-hl.bind(mainMod .. " + h ", layout_bind({
-    monocle = hl.dsp.layout("cyclenext"),
-    dwindle = hl.dsp.focus({ direction = "left" }),
-    scrolling = hl.dsp.focus({ direction = "left" }),
-    master = hl.dsp.focus({ direction = "left" }),
-}))
+hl.bind(
+	mainMod .. " + h ",
+	layout_bind({
+		monocle = hl.dsp.layout("cyclenext"),
+		dwindle = hl.dsp.focus({ direction = "left" }),
+		scrolling = hl.dsp.focus({ direction = "left" }),
+		master = hl.dsp.focus({ direction = "left" }),
+	})
+)
 
-hl.bind(mainMod .. " + l ", layout_bind({
-    monocle = hl.dsp.layout("cycleprev"),
-    dwindle = hl.dsp.focus({ direction = "right" }),
-    scrolling = hl.dsp.focus({ direction = "right" }),
-    master = hl.dsp.focus({ direction = "right" }),
-}))
-hl.bind(mainMod .. " + k ", layout_bind({
-    monocle = hl.dsp.focus({ direction = "up" }),
-    dwindle = hl.dsp.focus({ direction = "up" }),
-    scrolling = hl.dsp.focus({ direction = "up" }),
-    master = hl.dsp.focus({ direction = "up" }),
-}))
-hl.bind(mainMod .. " + j ", layout_bind({
-    monocle = hl.dsp.focus({ direction = "down" }),
-    dwindle = hl.dsp.focus({ direction = "down" }),
-    scrolling = hl.dsp.focus({ direction = "down" }),
-    master = hl.dsp.focus({ direction = "down" }),
-}))
-hl.bind(mainMod .. "+SHIFT + j ", layout_bind({
-    scrolling = hl.dsp.layout("consume_or_expel prev"),
-    master = hl.dsp.layout("swapwithmaster master"),
-}))
-hl.bind(mainMod .. "+ semicolon", layout_bind({
-    scrolling = hl.dsp.layout("colresize -0.200"),
-    -- master = hl.dsp.layout("swapwithmaster master"),
-}))
-hl.bind(mainMod .. "+ apostrophe", layout_bind({
-    scrolling = hl.dsp.layout("colresize +0.200"),
-    -- master = hl.dsp.layout("swapwithmaster master"),
-}))
+hl.bind(
+	mainMod .. " + l ",
+	layout_bind({
+		monocle = hl.dsp.layout("cycleprev"),
+		dwindle = hl.dsp.focus({ direction = "right" }),
+		scrolling = hl.dsp.focus({ direction = "right" }),
+		master = hl.dsp.focus({ direction = "right" }),
+	})
+)
+hl.bind(
+	mainMod .. " + k ",
+	layout_bind({
+		monocle = hl.dsp.focus({ direction = "up" }),
+		dwindle = hl.dsp.focus({ direction = "up" }),
+		scrolling = hl.dsp.focus({ direction = "up" }),
+		master = hl.dsp.focus({ direction = "up" }),
+	})
+)
+hl.bind(
+	mainMod .. " + j ",
+	layout_bind({
+		monocle = hl.dsp.focus({ direction = "down" }),
+		dwindle = hl.dsp.focus({ direction = "down" }),
+		scrolling = hl.dsp.focus({ direction = "down" }),
+		master = hl.dsp.focus({ direction = "down" }),
+	})
+)
+hl.bind(
+	mainMod .. "+SHIFT + j ",
+	layout_bind({
+		scrolling = hl.dsp.layout("consume_or_expel prev"),
+		master = hl.dsp.layout("swapwithmaster master"),
+	})
+)
+hl.bind(
+	mainMod .. "+ semicolon",
+	layout_bind({
+		scrolling = hl.dsp.layout("colresize -0.200"),
+		-- master = hl.dsp.layout("swapwithmaster master"),
+	})
+)
+hl.bind(
+	mainMod .. "+ apostrophe",
+	layout_bind({
+		scrolling = hl.dsp.layout("colresize +0.200"),
+		-- master = hl.dsp.layout("swapwithmaster master"),
+	})
+)
 hl.bind(mainMod .. " + b", function()
 	local ws = hl.get_active_workspace()
 	local layouts = { "dwindle", "master", "monocle", "scrolling" }
@@ -264,19 +315,19 @@ hl.bind(mainMod .. " + b", function()
 	for i, name in ipairs(layouts) do
 		if current == name then
 			next_layout = layouts[(i % #layouts) + 1]
-	        hl.workspace_rule({ workspace = "".. ws.id, layout = next_layout })
+			hl.workspace_rule({ workspace = "" .. ws.id, layout = next_layout })
 			break
 		end
 	end
 	current = next_layout
 	-- hl.config({ general = { layout = layouts[0] } })
 	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. next_layout .. "'"))
-    hl.notification.create({timeout=1000, text=next_layout,font_size=20})
-	hl.workspace_rule({ workspace ="" ..ws.id, layout = next_layout })
-
+	-- hl.notification.create({ timeout = 1000, text = next_layout, font_size = 20 })
+	hl.workspace_rule({ workspace = "" .. ws.id, layout = next_layout })
 end)
-hl.on("workspace.active", function (ws)
-    hl.notification.create({text="layout: "..ws.tiled_layout , timeout=1000})
+hl.on("workspace.active", function(ws)
+	-- hl.notification.create({ text = "layout: " .. ws.tiled_layout, timeout = 1000 })
+	hl.dispatch(hl.dsp.exec_cmd("notify-send -t 2000 'Layout: " .. ws.tiled_layout .. "'"))
 end)
 -- hl.on("workspace.move_to_monitor", function (ws,w)
 --     hl.notification.create({text="layout: "..ws.name, timeout=1000})
